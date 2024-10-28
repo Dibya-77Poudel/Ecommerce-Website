@@ -1,0 +1,245 @@
+
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+}
+
+/* Header and Navbar */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:#ff60a7;
+    color: #fff;
+    padding: 8px 13px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+}
+
+.navbar li {
+    margin: 0 10px;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 15px;
+}
+
+.navbar a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+.nav-icon {
+    display: flex;
+    align-items: center;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.cart-icon {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 12px;
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+    .navbar ul {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: #007bff;
+        width: 100%;
+        padding: 10px 0;
+        z-index: 1000;
+    }
+
+    .navbar ul.active {
+        display: flex;
+    }
+
+    .navbar li {
+        margin: 5px 0;
+        padding: 0 20px;
+        width: 100%;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    height: 500px;
+    background-image: url('image/about_us.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.hero h1,
+.hero p,
+.hero .cta-button {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff4081;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.cta-button:hover {
+    background-color: #ff60a7;
+}
+
+
+
+/* Additional Styles */
+.about-section {
+    padding: 90px 0;
+    background: white;
+}
+
+.about-section .section-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.about-details {
+    text-align: center;
+    max-width: 50%;
+    margin: auto;
+}
+
+.about-details h2 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.about-details p {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.about-section .about-image-wrapper .about-image {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    padding: 4%;
+}
+
+.categories {
+    padding: 50px 20px;
+    background-color: #fff;
+}
+
+.categories .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-text {
+    max-width: 50%;
+}
+
+.category-text h2 {
+    font-size: 32px;
+    color: #333;
+}
+
+.category-text h3 {
+    font-size: 24px;
+    color: #555;
+    margin: 10px 0;
+}
+
+.category-text p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.shop-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
