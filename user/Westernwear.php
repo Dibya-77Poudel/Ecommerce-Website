@@ -150,7 +150,7 @@
         <div class="row">
 
   
-        <h1 class="text-warning font-monospace text-center my-3">TRENDING WEAR</h1>   
+        <h1 class="text-warning font-monospace text-center my-3">WESTERN WEAR</h1>   
 
         <?php
         // Include your database configuration file
@@ -197,7 +197,7 @@
                             </select><br>
 
                             <!-- Add to Cart Button -->
-                           <input type='submit' name='addCart' class='btn btn-success text-white fw-bold' style='width: 80%;' value='Add To Cart'>
+                           <input type='submit' name='addCart' class='btn btn-warning text-white fw-bold' style='width: 90%; height: 35px;' value='Add To Cart'>
 
                         </div>
 

@@ -243,3 +243,35 @@ body {
     font-size: 16px;
     border-radius: 5px;
 }
+
+
+
+.search-container {
+    position: relative;
+    display: inline-block;
+}
+
+.search-box {
+    width: 100%;
+    padding: 20px;
+    padding-right: 35px; /* Extra padding to make room for the icon */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: black; /* Set icon color to black */
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+
+

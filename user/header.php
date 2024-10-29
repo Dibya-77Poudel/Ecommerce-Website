@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha348-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-
+<link rel="stylesheet" href="css/style.css">
     
 </head>
 <body>
@@ -49,8 +49,12 @@
                 <li><a href="#login" class="nav-icon"><i class="fas fa-user"></i> Login</a></li>
                 <li><a href="../admin/mystore.php" class="nav-icon"><i class="fas fa-user-shield"></i> Admin</a></li>
                 <li>
-                    <input type="text" placeholder="Search..." class="search-box">
-                </li>
+    <div class="search-container">
+        <input type="text" placeholder="Search..." class="search-box">
+        <i class="fas fa-search search-icon"></i> <!-- Font Awesome icon -->
+    </div>
+</li>
+
                 <li class="cart-icon">
                     <a href="viewCart.php" class="nav-icon"><i class="fas fa-shopping-cart"></i> Cart</a>
                     <span class="cart-count"><?php echo $count?></span>

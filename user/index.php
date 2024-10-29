@@ -145,7 +145,7 @@
                             </select><br>
 
                             <!-- Add to Cart Button -->
-                            <input type='submit' name='addCart' class='btn btn-success text-white fw-bold' style='width: 80%;' value='Add To Cart'>
+                            <input type='submit' name='addCart' class='btn btn-warning text-white fw-bold' style='width: 80%;' value='Add To Cart'>
                         </div>
 
                         <!-- Hidden Popup Content for Product Details -->
