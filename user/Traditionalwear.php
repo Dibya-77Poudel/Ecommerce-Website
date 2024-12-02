@@ -191,11 +191,11 @@
                             <!-- Size Select -->
                             <select name='PSize' class='form-select' 
                                 style='width: 60%; padding: 8px; font-size: 0.9rem; box-sizing: border-box; height: 35px; margin-top: 10px;' required>
-                                <option value='' disabled selected>Select Size</option>
-                                <option value='S'>Small</option>
-                                <option value='M'>Medium</option>
-                                <option value='L'>Large</option>
-                                <option value='XL'>Extra Large</option>
+                                <option value='' disabled selected>Select Color</option>
+                                <option value='S'>Red</option>
+                                <option value='M'>Blue</option>
+                                <option value='L'>Lavender</option>
+                                <option value='XL'>white</option>
                             </select><br>
 
                             <!-- Add to Cart Button -->

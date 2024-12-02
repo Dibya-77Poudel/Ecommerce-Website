@@ -24,7 +24,7 @@
     }
 
 ?>
-    <header class="header">
+    <class class="header">
     <div class="logo">
     <a href="index.php">
         <img src="images/logo.png" alt="Fashionista Logo" class="logo-image">
@@ -41,38 +41,154 @@
         height: auto; 
     }
 </style>
-        <nav class="navbar">
-            <ul>
-                <li><a href="index.php" class="nav-icon"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#about" class="nav-icon"><i class="fas fa-info-circle"></i> About</a></li>
-                <li><a href="#products" class="nav-icon"><i class="fas fa-th"></i> Products</a></li>
-                <li><a href="#login" class="nav-icon"><i class="fas fa-user"></i> Login</a></li>
-                <li><a href="../admin/mystore.php" class="nav-icon"><i class="fas fa-user-shield"></i> Admin</a></li>
-                <li>
-    <div class="search-container">
-        <input type="text" placeholder="Search..." class="search-box">
-        <i class="fas fa-search search-icon"></i> <!-- Font Awesome icon -->
+<nav class="navbar" style="position: relative; width: 100%; padding: 10px 20px; display: flex; flex-direction: column;">
+    <!-- Navigation links -->
+    <ul style="list-style: none; display: flex; justify-content: flex-end; margin: 0; padding: 0;">
+        <li style="margin: 0 10px;">
+            <a href="index.php" class="nav-icon" style="text-decoration: none;">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </li>
+        <li style="margin: 0 10px;">
+            <a href="#about" class="nav-icon" style="text-decoration: none;">
+                <i class="fas fa-info-circle"></i> About
+            </a>
+        </li>
+        <li style="margin: 0 10px;">
+            <a href="#products" class="nav-icon" style="text-decoration: none;">
+                <i class="fas fa-th"></i> Products
+            </a>
+        </li>
+        <li style="margin: 0 10px;">
+            <a href="../admin/mystore.php" class="nav-icon" style="text-decoration: none;">
+                <i class="fas fa-user-shield"></i> Admin
+            </a>
+        </li>
+        <li style="margin: 0 10px;" class="cart-icon">
+            <a href="viewCart.php" class="nav-icon" style="text-decoration: none;">
+                <i class="fas fa-shopping-cart"></i> Cart
+            </a>
+            <span class="cart-count"><?php echo $count ?></span>
+        </li>
+        <li style="margin: 0 10px;">
+            <a href="#login" class="nav-icon" style="text-decoration: none;">
+                <i class="fas fa-user"></i> Account
+            </a>
+        </li>
+    </ul>
+    <!-- Search bar -->
+    <div class="search-container" style="display: flex; align-items: center; justify-content: center; margin: 10px auto 0; padding: 8px; width: 90%; max-width: 800px;">
+        <input type="text" placeholder="Search..." class="search-box" style="border: 1px solid #ccc; width: 100%; padding: 8px; border-radius: 4px; font-size: 14px; outline: none;">
+        <i class="fas fa-search" style="margin-left: 10px; font-size: 16px;"></i>
     </div>
-</li>
+</nav>
 
-                <li class="cart-icon">
-                    <a href="viewCart.php" class="nav-icon"><i class="fas fa-shopping-cart"></i> Cart</a>
-                    <span class="cart-count"><?php echo $count?></span>
-                </li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <i class="fas fa-bars"></i>
-            </div>
-        </nav>
-    </header>
+
+</class>
 
     <main class="main-content">
-        <section class="hero">
-            <h1>Welcome to Woman's wear</h1>
-            <p>Your go-to store for ladies' fashion!</p>
-            <a href="#products" class="cta-button">Shop Now</a>
-        </section>
-    </main>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Welcome to B2C Fashion Wear Application. </h1>
+                <p>Your go-to store for ladies' fashion!</p>
+                <a href="#products" class="cta-button">Shop Now</a>
+            </div>
+            <div class="hero-image">
+                <img src="images/backk.png" alt="Background Image" />
+            </div>
+        </div>
+    </section>
+</main>
+
+<style>
+    .hero {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background-color: #fdfdfd;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        width: 100%;
+    }
+
+    .hero-text {
+        flex: 1;
+        max-width: 50%;
+        color: #ffffff; /* White text */
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Adds contrast for readability */
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #ffffff; /* White heading */
+    }
+
+    .hero-text p {
+        margin: 10px 0;
+        font-size: 1.2rem;
+        color: #ffffff; /* White paragraph */
+    }
+
+    .cta-button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        color: #fff; /* White text */
+        background-color: #ff007f; /* Pink button */
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .cta-button:hover {
+        background-color: #e60073; /* Slightly darker pink on hover */
+    }
+
+    .hero-image {
+        flex: 1;
+        max-width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hero-image img {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain; /* Keeps the original image quality */
+    }
+
+    @media (max-width: 768px) {
+        .hero-content {
+            flex-direction: column;
+        }
+
+        .hero-text {
+            max-width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .hero-image {
+            max-width: 100%;
+        }
+    }
+</style>
+
+
 
    
 
@@ -128,9 +244,9 @@
             <p>Explore our entire collection, from traditional to trendy, and find the perfect wear for every occasion.</p>
         </div>
         
-        <div class="category-image">
-            <a href="all.php">
-                <img src="images/rain.jpg" alt="All Categories" class="adjusted-size" id="slidingImage">
+        <div class="category-image" style="width: 90%; max-width: 400px; margin: 0 auto;">
+            <a href="all.php"style="color: #ff007f; font-weight: bold;">
+                <img src="images/tre.jpeg" alt="All Categories" style="width: 100%; height: auto; object-fit: cover; display: block;" id="slidingImage">
             </a>
         </div>
     </div>
@@ -141,7 +257,7 @@
     /* Set a fixed-size box for the images */
     .category-image {
         width: 200px; /* Fixed width */
-        height: 150px; /* Fixed height */
+        height: 200px; /* Fixed height */
         overflow: hidden; /* Hide any overflow */
     }
 
@@ -156,9 +272,9 @@
 <script>
     // JavaScript to create a sliding effect for the images
     const images = [
-        'images/rain.jpg',       // Image 1
-        'images/sun.webp',        // Image 2
-        'images/cloud.jpg',      // Image 3
+        'images/old.jpeg',       // Image 1
+        'images/westt.jpeg',        // Image 2
+        'images/tre.jpeg',      // Image 3
     ];
     let currentIndex = 0;
 
@@ -185,18 +301,22 @@
                 <p>Elevate your style with our collection of edgy jackets and coats, designed to make a statement wherever you go. From sleek leather bombers to overcoats, each piece combines attitude and utility for a truly unique look.</p>
                 <a href="Traditionalwear.php" class="cta-button">Show</a>
             </div>
-            <div class="category-image">
-                <a href="Traditionalwear.php"><img src="images/shirt.png" alt="Traditional Wear" class="adjusted-size"></a>
-            </div>
+            <div class="category-image" style="width: 90%; max-width: 400px; margin: 0 auto;">
+  <a href="Traditionalwear.php">
+    <img src="images/old.jpeg" alt="Traditional Wear" style="width: 100%; height: auto; object-fit: cover; display: block;">
+  </a>
+</div>
         </div>
         
     </section>
 
     <section class="categories">
     <div class="container">
-        <div class="category-image">
-            <a href="Culturalwear.php"><img src="images/shirt.png" alt="Cultural Wear" class="adjusted-size"></a>
-        </div>
+    <div class="category-image" style="width: 90%; max-width: 400px; margin: 0 auto;">
+  <a href="Culturalwear.php">
+    <img src="images/culturall.jpg" alt="Cultural Wear" style="width: 80%; height: 250px; object-fit: cover; display: block;">
+  </a>
+</div>
         <div class="category-text">
             <h3><a href="Culturalwear.php" style="color: #ff007f; font-weight: bold;">Cultural Wear</a></h3>
             <p>Elevate your style with our collection of edgy jackets and coats, designed to make a statement wherever you go. From sleek leather bombers to overcoats, each piece combines attitude and utility for a truly unique look.</p>
@@ -214,9 +334,11 @@
                 <a href="Westernwear.php" class="cta-button">Show</a>
            
             </div>
-            <div class="category-image">
-                <a href="Westernwear.php"><img src="images/shirt.png" alt="Western Wear" class="adjusted-size"></a>
-            </div>
+            <div class="category-image" style="width: 90%; max-width: 400px; margin: 0 auto;">
+  <a href="Westernwear.php">
+    <img src="images/westt.jpeg" alt="Western Wear" style="width: 100%; height: auto; object-fit: cover; display: block;">
+  </a>
+</div>
         </div>
         
     </section>
@@ -228,9 +350,11 @@
     <!-- Second Row (3 items) -->
     <section class="categories">
         <div class="container">
-            <div class="category-image">
-                <a href="Trendingwear.php"><img src="images/shirt.png" alt="Trending Wear" class="adjusted-size"></a>
-            </div>
+        <div class="category-image" style="width: 90%; max-width: 400px; margin: 0 auto;">
+  <a href="Trendingwear.php">
+    <img src="images/tre.jpeg" alt="Trending Wear" style="width: 100%; height: 300px; object-fit: cover; display: block;">
+  </a>
+</div>
             <div class="category-text">
                 <h3><a href="Trendingwear.php" style="color: #ff007f; font-weight: bold;">Trending Wear</a></h3>
                 <p>Make your big day special with our exclusive trending wear.</p>
@@ -243,23 +367,26 @@
     <section class="categories">
         <div class="container">
             <div class="category-text">
-                <h3><a href="Casualwear.php" style="color: #ff007f; font-weight: bold;">Casual Wear</a></h3>
+                <h3><a href="Winterwear.php" style="color: #ff007f; font-weight: bold;">Winter Wear</a></h3>
                 <p> Stay comfortable and stylish with our casual wear.</p>
-                <a href="Casualwear.php" class="cta-button">Show</a>
+                <a href="Winterwear.php" class="cta-button">Show</a>
             </div>
-            <div class="category-image">
-                <a href="Casualwear.php"><img src="images/shirt.png" alt="Casual Wear" class="adjusted-size"></a>
-            </div>
+            <div class="category-image" style="width: 90%; max-width: 400px; margin: 0 auto;">
+  <a href="winterwear.php">
+    <img src="images/winter.jpeg" alt="winter Wear" style="width: 80%; height: 300px; object-fit: cover; display: block;">
+  </a>
+</div>
         </div>
         
     </section>
 
     <section class="categories">
         <div class="container">
-            <div class="category-image">
-                <a href="Weedingwear.php"><img src="images/shirt.png" alt="Wedding Wear" class="adjusted-size"></a>
-                
-            </div>
+        <div class="category-image" style="width: 90%; max-width: 400px; margin: 0 auto;">
+  <a href="Weedingwear.php">
+    <img src="images/weeding.jpg" alt="Weeding Wear" style="width: 100%; height:440px; object-fit: cover; display: block;">
+  </a>
+</div>
             
             <div class="category-text">
                 <h3><a href="Weedingwear.php" style="color: #ff007f; font-weight: bold;">Wedding Wear</a></h3>

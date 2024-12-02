@@ -91,7 +91,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <h1 class="text-danger font-monospace text-center my-3">OUR COLLECTIONS</h1>
+        <h1 class="text-danger font-monospace text-center my-3">OUTFITS</h1>
 
         <!-- Example horizontal line styling -->
         <div class="d-flex justify-content-center mb-4">
@@ -116,7 +116,7 @@
                     <div class='card m-auto'>
 
                         <!-- Popup Icon -->
-                        <div class='popup-icon' onclick='togglePopup({$row['id']})'>!</div>
+                        <div class='popup-icon' onclick='togglePopup({$row['id']})'>i</div>
 
                         <!-- Image container for uniform sizing -->
                         <div class='image-container'>
@@ -136,7 +136,7 @@
 
                             <!-- Size Select -->
                             <select name='PSize' class='form-select' 
-                                style='width: 60%; padding: 8px; font-size: 0.9rem; box-sizing: border-box; height: 35px; margin-top: 10px;' required>
+                                style='width: 60%; margin-right:10px ; padding: 8px; font-size: 0.9rem; box-sizing: border-box; height: 35px; margin-top: 10px;' required>
                                 <option value='' disabled selected>Select Size</option>
                                 <option value='S'>Small</option>
                                 <option value='M'>Medium</option>

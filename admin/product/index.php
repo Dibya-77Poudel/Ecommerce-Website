@@ -51,7 +51,7 @@
   <option value="Western Wear">WESTERN WEAR</option>
   <option value="Trending Wear">TRENDING WEAR</option>
   <option value="Weeding Wear">WEEDING WEAR</option>
-  <option value="Casual Wear">CASUAL WEAR</option>
+  <option value="Winter Wear">WINTER WEAR</option>
 </select>
 </div>
     <button name="submit"class="bg-danger fs-4 fw-bold my-3 form-control text-white">Upload</button>

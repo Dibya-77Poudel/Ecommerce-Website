@@ -35,7 +35,7 @@ if (!isset($_SESSION['admin'])) {
                 <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
             </ul>
             <button class="logout-btn"><i class="fas fa-sign-out-alt"></i> Log Out</button>
-            <a href="form/logout.php" class="text-decoration-none text-white">Logout</a> |
+            <a href="form/logout.php" class="text-decoration-none text-white"></a> 
         </nav>
 
         <div class="main-content">
@@ -48,25 +48,25 @@ if (!isset($_SESSION['admin'])) {
                 </div>
             </header>
 
-            <div class="dashboard">
-                <div class="card">
-                    <h3><i class="fas fa-shopping-cart"></i> Total Orders</h3>
-                    <p>4</p>
-                </div>
-                <div class="card">
-                    <h3><i class="fas fa-box"></i> Total Products</h3>
-                    <p>0</p>
-                </div>
-                <div class="card">
-                    <h3><i class="fas fa-tags"></i> Total Categories</h3>
-                    <p>0</p>
-                </div>
-                <div class="card">
-                    <h3><i class="fas fa-dollar-sign"></i> Total Revenue</h3>
-                    <p>Rs 1090</p>
-                </div>
-            </div>
-        </div>
+            <div class="dashboard" style="display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+  <div class="card" style="flex: 1; max-width: 22%; padding: 20px; text-align: center; background-color: #f4f4f4; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+    <h3><i class="fas fa-shopping-cart"></i> Total Orders</h3>
+    <p>0</p>
+  </div>
+  <div class="card" style="flex: 1; max-width: 22%; padding: 20px; text-align: center; background-color: #f4f4f4; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+    <h3><i class="fas fa-box"></i> Total Products</h3>
+    <p>0</p>
+  </div>
+  <div class="card" style="flex: 1; max-width: 22%; padding: 20px; text-align: center; background-color: #f4f4f4; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+    <h3><i class="fas fa-tags"></i> Total Categories</h3>
+    <p>0</p>
+  </div>
+  <div class="card" style="flex: 1; max-width: 22%; padding: 20px; text-align: center; background-color: #f4f4f4; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+    <h3><i class="fas fa-dollar-sign"></i> Total Revenue</h3>
+    <p>0</p>
+  </div>
+</div>
+
     </div>
 
     <!-- Bootstrap JS (Optional) -->

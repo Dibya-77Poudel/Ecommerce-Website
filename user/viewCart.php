@@ -30,21 +30,34 @@ session_start();
 
 ?>
     <header class="header">
-        <div class="logo">Fashionista</div>
+    <div class="logo">
+    <a href="index.php">
+        <img src="images/logo.png" alt="Fashionista Logo" class="logo-image">
+    </a>
+</div>
         <nav class="navbar">
             <ul>
                 <li><a href="index.php" class="nav-icon"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="#about" class="nav-icon"><i class="fas fa-info-circle"></i> About</a></li>
                 <li><a href="#products" class="nav-icon"><i class="fas fa-th"></i> Products</a></li>
-                <li><a href="#login" class="nav-icon"><i class="fas fa-user"></i> Login</a></li>
-                <li><a href="../admin/mystore.php" class="nav-icon"><i class="fas fa-user-shield"></i> Admin</a></li>
+
                 <li>
-                    <input type="text" placeholder="Search..." class="search-box">
-                </li>
-                <li class="cart-icon">
+    <div class="search-container" style="display: flex; align-items: center; background-color: #f0f0f0; padding: 2px 8px; border-radius: 4px; width: 100%;">
+        <input type="text" placeholder="Search..." class="search-box" style="border: none; background-color: transparent; height: 18px; flex-grow: 1; outline: none; font-size: 12px;">
+        <i class="fas fa-search search-icon" style="color: #888; font-size: 14px;"></i> <!-- Font Awesome icon -->
+    </div>
+</li>
+
+
+
+               
+                <li><a href="../admin/mystore.php" class="nav-icon"><i class="fas fa-user-shield"></i> Admin</a></li>
+            
+                 <li class="cart-icon">
                     <a href="viewCart.php" class="nav-icon"><i class="fas fa-shopping-cart"></i> Cart</a>
                     <span class="cart-count"><?php echo $count?></span>
                 </li>
+                <li><a href="#login" class="nav-icon"><i class="fas fa-user"></i> Account</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <i class="fas fa-bars"></i>
