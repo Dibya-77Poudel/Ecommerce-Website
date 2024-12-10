@@ -1,8 +1,12 @@
 <?php
-session_start();
+ session_start();
+    $count = 0;
+    if(isset($_SESSION['cart'])){
+        $count = count($_SESSION['cart']);
+    }
+
 ?>
-
-
+  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,53 +21,235 @@ session_start();
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha348-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
+
+<style>
+    /* Popup icon styling */
+    .popup-icon {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: white;
+        color: black;
+        font-size: 20px; /* Font size */
+        padding: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 30px; /* Icon width */
+        height: 30px; /* Icon height */
+        text-align: center;
+        line-height: 18px; /* Match line height to height */
+        z-index: 1000;
+        font-weight: bold; /* Bold font */
+        margin-top: -2px; /* Adjust this value to move the symbol up */
+    }
+    
+    /* Popup content styling */
+    .popup-content {
+        display: none;
+        position: absolute;
+        top: 50px;
+        left: 10px;
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        width: 300px;
+        z-index: 1000;
+    }
+
+    .popup-content h4 {
+        margin-top: 0;
+    }
+
+    /* Product card styling */
+    .card {
+        position: relative;
+        width: 18rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .card img {
+        width: 100%;
+        height: auto;
+    }
+
+    .image-container {
+            width: 100%;
+            height: 200px; /* Set a fixed height for uniformity */
+            overflow: hidden;
+        }
+
+        /* Ensure image fills the container and maintains aspect ratio */
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the container while maintaining aspect ratio */
+        }
+
+    .card-body {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .container-fluid {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .col-md-4 {
+        padding: 10px;
+    }
+
+
+
+
+
+
+
+
+    .back-arrow {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    text-decoration: none;
+    background: linear-gradient(45deg, #ff7eb3, #ff758c);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.back-arrow:hover {
+    background: linear-gradient(45deg, #ff5177, #ff2a4d);
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.back-arrow-icon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: solid white;
+    border-width: 2px 2px 0 0;
+    transform: rotate(-135deg);
+    margin-right: -2px;
+    margin-top: 2px;
+}
+
+.back-arrow-tooltip {
+    display: none;
+    position: absolute;
+    bottom: -30px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+.back-arrow:hover .back-arrow-tooltip {
+    display: block;
+}
+
+
+
+
+
+    .header {
+        position: sticky;
+        top: 0; /* Sticks to the top of the page */
+        z-index: 1000; /* Ensure it stays above other content */
+        background-color: #ff60a7; /* Optional: Set background color */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for clarity */
+    }
+
+
+
+
+
+
+
+</style>
+
+
     
 </head>
 <body>
 
-<?php
 
-    $count = 0;
-    if(isset($_SESSION['cart'])){
-        $count = count($_SESSION['cart']);
-    }
-
-?>
-    <header class="header">
+<header class="header" style="padding: 5px 0; height: auto;">
     <div class="logo">
-    <a href="index.php">
-        <img src="images/logo.png" alt="Fashionista Logo" class="logo-image">
+        <a href="index.php">
+            <img src="images/logo.png" alt="Fashionista Logo" class="logo-image">
+        </a>
+    </div>
+    <style>
+        .logo {
+            text-align: center;
+        }
+
+        .logo-image {
+            max-width: 80px; /* Reduced size to make header appear smaller */
+            height: auto;
+        }
+    </style>
+
+    <nav class="navbar" style="position: relative; width: 100%; padding: 5px 20px; display: flex; flex-direction: column;">
+        <!-- Navigation links -->
+        <ul style="list-style: none; display: flex; justify-content: flex-end; margin: 0; padding: 0;">
+            <li style="margin: 0 10px;">
+                <a href="index.php" class="nav-icon" style="text-decoration: none;">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </li>
+            <li style="margin: 0 10px;">
+                <a href="#about" class="nav-icon" style="text-decoration: none;">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
+            </li>
+            <li style="margin: 0 10px;">
+                <a href="#products" class="nav-icon" style="text-decoration: none;">
+                    <i class="fas fa-th"></i> Products
+                </a>
+            </li>
+            
+            <li style="margin: 0 10px;" class="cart-icon">
+                <a href="viewCart.php" class="nav-icon" style="text-decoration: none;">
+                    <i class="fas fa-shopping-cart"></i> Cart
+                </a>
+                <span class="cart-count"><?php echo $count ?></span>
+            </li>
+            <li style="margin: 0 10px;">
+                <a href="#login" class="nav-icon" style="text-decoration: none;">
+                    <i class="fas fa-user"></i> Account
+                </a>
+            </li>
+        </ul>
+        <!-- Search bar -->
+        <div class="search-container" style="display: flex; align-items: center; justify-content: center; margin: 10px auto 0; padding: 5px; width: 90%; max-width: 800px;">
+            <input type="text" placeholder="Search..." class="search-box" style="border: 1px solid #ccc; width: 100%; padding: 8px; border-radius: 4px; font-size: 14px; outline: none;">
+            <i class="fas fa-search" style="margin-left: 10px; font-size: 16px;"></i>
+        </div>
+    </nav>
+    <div>
+    <a href="index.php" class="back-arrow">
+        <span class="back-arrow-icon"></span>
+        <span class="back-arrow-tooltip">Go back</span>
     </a>
 </div>
-        <nav class="navbar">
-            <ul>
-                <li><a href="index.php" class="nav-icon"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#about" class="nav-icon"><i class="fas fa-info-circle"></i> About</a></li>
-                <li><a href="#products" class="nav-icon"><i class="fas fa-th"></i> Products</a></li>
+</header>
 
-                <li>
-    <div class="search-container" style="display: flex; align-items: center; background-color: #f0f0f0; padding: 2px 8px; border-radius: 4px; width: 100%;">
-        <input type="text" placeholder="Search..." class="search-box" style="border: none; background-color: transparent; height: 18px; flex-grow: 1; outline: none; font-size: 12px;">
-        <i class="fas fa-search search-icon" style="color: #888; font-size: 14px;"></i> <!-- Font Awesome icon -->
-    </div>
-</li>
-
-
-
-               
-                <li><a href="../admin/mystore.php" class="nav-icon"><i class="fas fa-user-shield"></i> Admin</a></li>
-            
-                 <li class="cart-icon">
-                    <a href="viewCart.php" class="nav-icon"><i class="fas fa-shopping-cart"></i> Cart</a>
-                    <span class="cart-count"><?php echo $count?></span>
-                </li>
-                <li><a href="#login" class="nav-icon"><i class="fas fa-user"></i> Account</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <i class="fas fa-bars"></i>
-            </div>
-        </nav>
-    </header>
 
     
 <div class="container">

@@ -26,22 +26,24 @@ if (!isset($_SESSION['admin'])) {
 
     <div class="container">
         <nav class="sidebar">
-            <h2>FashionWear</h2>
+            <h4>FashionWear</h4>
             <ul>
                 <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
                 <li><a href="#"><i class="fas fa-box"></i> Orders</a></li>
-                <li><a href="./product/index.php"><i class="fas fa-cube"></i>Add Products</a></li>
+                <li><a href="./product/index.php"><i class="fas fa-cube"></i>Products</a></li>
                 <li><a href="#"><i class="fas fa-tags"></i> Categories</a></li>
                 <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
             </ul>
-            <button class="logout-btn"><i class="fas fa-sign-out-alt"></i> Log Out</button>
-            <a href="form/logout.php" class="text-decoration-none text-white"></a> 
+            <button class="logout-btn"><li><a href="form/logout.php" class="text-decoration-none text-white"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+            
+            </button> 
         </nav>
 
         <div class="main-content">
             <header>
                 <div class="search-bar">
-                    <input type="text" placeholder="Search Product">
+                    <input type="text" placeholder="Search Product..">
+                    <i class="fas fa-search" style="margin-left: 10px; font-size: 16px;"></i>
                 </div>
                 <div class="user">
                     <i class="fas fa-user"></i> <span>Fashion Wear</span>
@@ -71,11 +73,19 @@ if (!isset($_SESSION['admin'])) {
 
     <!-- Bootstrap JS (Optional) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ppWCBNhlwTQdH7OxyRXIBLGDFNyRC1cIvFJk9ZFFzPi5Kj2LsmneZtjbISdeDZsj" crossorigin="anonymous"></script>
+
+
 </body>
-<style>* {
+<style>
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html, body {
+    height: 100%; /* Full height */
+    width: 100%; /* Full width */
 }
 
 body {
@@ -85,18 +95,22 @@ body {
 
 .container {
     display: flex;
-    height: 100vh;
+    height: 100vh; /* Ensure full height */
     background-color: #ecf0f5;
 }
 
 .sidebar {
-    width: 250px;
+    width: 220px;
     background-color: #2c3e50;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
+    position: fixed; /* Fix the sidebar on the left */
+    left: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .sidebar h2 {
@@ -153,7 +167,9 @@ body {
 .main-content {
     flex-grow: 1;
     padding: 20px;
+    margin-left: 100px; /* Offset by sidebar width */
 }
+
 header {
     display: flex;
     justify-content: space-between;
@@ -166,8 +182,8 @@ header {
 }
 
 .search-bar input {
-    width: 300px;
-    padding: 10px;
+    width: 400px;
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -185,41 +201,25 @@ header {
     margin-right: 5px;
 }
 
-.search-bar input {
-    width: 300px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.user {
-    background-color: #3498db;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-}
-
-.user i {
-    margin-right: 5px;
-}
-
 .dashboard {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 20px;
+    
+   
 }
 
 .card {
     background-color: white;
-    padding: 20px;
+    padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: auto;
+    
 }
 
 .card h3 {
@@ -256,10 +256,13 @@ header {
 
     .main-content {
         padding: 10px;
+        margin-left: 100px; /* Adjust for smaller sidebar */
     }
 
     header .search-bar input {
         width: 100%;
     }
-}</style>
+}
+</style>
+
 </html>

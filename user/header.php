@@ -1,3 +1,11 @@
+<?php
+ session_start();
+    $count = 0;
+    if(isset($_SESSION['cart'])){
+        $count = count($_SESSION['cart']);
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,75 +21,81 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha348-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 <link rel="stylesheet" href="css/style.css">
     
-</head>
-<body>
 
-<?php
- session_start();
-    $count = 0;
-    if(isset($_SESSION['cart'])){
-        $count = count($_SESSION['cart']);
-    }
 
-?>
-    <class class="header">
-    <div class="logo">
-    <a href="index.php">
-        <img src="images/logo.png" alt="Fashionista Logo" class="logo-image">
-    </a>
-</div>
 
 <style>
-    .logo {
-       
+.header {
+        position: sticky;
+        top: 0; /* Sticks to the top of the page */
+        z-index: 1000; /* Ensure it stays above other content */
+        background-color: #ff60a7; /* Optional: Set background color */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for clarity */
     }
-    
-    .logo-image {
-        max-width: 100px; 
-        height: auto; 
-    }
+
 </style>
-<nav class="navbar" style="position: relative; width: 100%; padding: 10px 20px; display: flex; flex-direction: column;">
-    <!-- Navigation links -->
-    <ul style="list-style: none; display: flex; justify-content: flex-end; margin: 0; padding: 0;">
-        <li style="margin: 0 10px;">
-            <a href="index.php" class="nav-icon" style="text-decoration: none;">
-                <i class="fas fa-home"></i> Home
-            </a>
-        </li>
-        <li style="margin: 0 10px;">
-            <a href="#about" class="nav-icon" style="text-decoration: none;">
-                <i class="fas fa-info-circle"></i> About
-            </a>
-        </li>
-        <li style="margin: 0 10px;">
-            <a href="#products" class="nav-icon" style="text-decoration: none;">
-                <i class="fas fa-th"></i> Products
-            </a>
-        </li>
-        <li style="margin: 0 10px;">
-            <a href="../admin/mystore.php" class="nav-icon" style="text-decoration: none;">
-                <i class="fas fa-user-shield"></i> Admin
-            </a>
-        </li>
-        <li style="margin: 0 10px;" class="cart-icon">
-            <a href="viewCart.php" class="nav-icon" style="text-decoration: none;">
-                <i class="fas fa-shopping-cart"></i> Cart
-            </a>
-            <span class="cart-count"><?php echo $count ?></span>
-        </li>
-        <li style="margin: 0 10px;">
-            <a href="#login" class="nav-icon" style="text-decoration: none;">
-                <i class="fas fa-user"></i> Account
-            </a>
-        </li>
-    </ul>
-    <!-- Search bar -->
-    <div class="search-container" style="display: flex; align-items: center; justify-content: center; margin: 10px auto 0; padding: 8px; width: 90%; max-width: 800px;">
-        <input type="text" placeholder="Search..." class="search-box" style="border: 1px solid #ccc; width: 100%; padding: 8px; border-radius: 4px; font-size: 14px; outline: none;">
-        <i class="fas fa-search" style="margin-left: 10px; font-size: 16px;"></i>
+</head>
+
+
+<body>
+
+
+<header class="header" style="padding: 5px 0; height: auto;">
+    <div class="logo">
+        <a href="index.php">
+            <img src="images/logo.png" alt="Fashionista Logo" class="logo-image">
+        </a>
     </div>
-</nav>
+    <style>
+        .logo {
+            text-align: center;
+        }
+
+        .logo-image {
+            max-width: 80px; /* Reduced size to make header appear smaller */
+            height: auto;
+        }
+    </style>
+
+    <nav class="navbar" style="position: relative; width: 100%; padding: 5px 20px; display: flex; flex-direction: column;">
+        <!-- Navigation links -->
+        <ul style="list-style: none; display: flex; justify-content: flex-end; margin: 0; padding: 0;">
+            <li style="margin: 0 10px;">
+                <a href="index.php" class="nav-icon" style="text-decoration: none;">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </li>
+            <li style="margin: 0 10px;">
+                <a href="#about" class="nav-icon" style="text-decoration: none;">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
+            </li>
+            <li style="margin: 0 10px;">
+                <a href="#products" class="nav-icon" style="text-decoration: none;">
+                    <i class="fas fa-th"></i> Products
+                </a>
+            </li>
+            
+            <li style="margin: 0 10px;" class="cart-icon">
+                <a href="viewCart.php" class="nav-icon" style="text-decoration: none;">
+                    <i class="fas fa-shopping-cart"></i> Cart
+                </a>
+                <span class="cart-count"><?php echo $count ?></span>
+            </li>
+            <li style="margin: 0 10px;">
+                <a href="form/register.php" class="nav-icon" style="text-decoration: none;">
+                    <i class="fas fa-user"></i> Account
+                </a>
+            </li>
+        </ul>
+        <!-- Search bar -->
+        <div class="search-container" style="display: flex; align-items: center; justify-content: center; margin: 10px auto 0; padding: 5px; width: 90%; max-width: 800px;">
+            <input type="text" placeholder="Search..." class="search-box" style="border: 1px solid #ccc; width: 100%; padding: 8px; border-radius: 4px; font-size: 14px; outline: none;">
+            <i class="fas fa-search" style="margin-left: 10px; font-size: 16px;"></i>
+        </div>
+    </nav>
+</header>
+
 
 
 </class>
@@ -92,7 +106,7 @@
             <div class="hero-text">
                 <h1>Welcome to B2C Fashion Wear Application. </h1>
                 <p>Your go-to store for ladies' fashion!</p>
-                <a href="#products" class="cta-button">Shop Now</a>
+                <a href="all.php" class="cta-button">Shop Now</a>
             </div>
             <div class="hero-image">
                 <img src="images/backk.png" alt="Background Image" />

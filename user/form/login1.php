@@ -1,11 +1,13 @@
 
 <?php
-$Email = $$_POST['email'];
-$Password = $$_POST['password'];
-
+$Email = $_POST['email'];
+$Password = $_POST['password'];
+echo $Email;
+echo $Password;
+$Password1 = password_hash($Password, PASSWORD_BCRYPT);
 
 $Con = mysqli_connect('localhost','root','','ecommerce');
-$result = mysqli_query($Con, "SELECT * FROM `tbluser` WHERE Email = '$Email' AND Password='$Password'");
+$result = mysqli_query($Con, "SELECT * FROM `tbluser` WHERE email = '$Email' AND password='$Password'");
 
 
 if(mysqli_num_rows($result)){

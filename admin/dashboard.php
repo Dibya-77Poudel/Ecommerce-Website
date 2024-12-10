@@ -23,41 +23,8 @@ if(!$_SESSION['admin']){
 
 
 <body>
-<nav class="navbar navbar-light bg-dark">
-  <div class="container-fluid text-white">
-    <a class="navbar-brand text-white "><h1>WomenWear</h1></a>
-    <span>
-      <i class="fas fa-user-shield"></i>
-      Hello,<?php echo $_SESSION['admin']; ?> |
-      <i class="fas fa-sign-out-alt"></i>
-      <a href="form/logout.php" class="text-decoration-none text-white">Logout</a> |
-      <a href="" class="text-decoration-none text-white">Userpanel</a>
-    </span>
-  </div>
-</nav>
 
-<div>
-    <h2 class="text-center">Dashboard</h2>
-</div>
 
-<div class="row justify-content-center">
-    <!-- Add Post Section -->
-    <div class="col-md-3 mx-5 my-4">
-        <div class="card bg-danger text-white text-center">
-            <div class="card-body">
-                <a href="product/index.php" class="text-white text-decoration-none fs-4 fw-bold">Add Post</a>
-            </div>
-        </div>
-    </div>
-    <!-- Users Section -->
-    <div class="col-md-3 mx-5 my-4">
-        <div class="card bg-danger text-white text-center">
-            <div class="card-body">
-                <a href="" class="text-white text-decoration-none fs-4 fw-bold">Users</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 </body>
 </html>

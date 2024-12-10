@@ -9,44 +9,6 @@
     ?>
 
     <style>
-        /* Popup icon styling */
-        .popup-icon {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: white;
-            color: black;
-            font-size: 20px; /* Font size */
-            padding: 5px;
-            border-radius: 50%;
-            cursor: pointer;
-            width: 30px; /* Icon width */
-            height: 30px; /* Icon height */
-            text-align: center;
-            line-height: 18px; /* Match line height to height */
-            z-index: 1000;
-            font-weight: bold; /* Bold font */
-            margin-top: -2px; /* Adjust this value to move the symbol up */
-        }
-        
-        /* Popup content styling */
-        .popup-content {
-            display: none;
-            position: absolute;
-            top: 50px;
-            left: 10px;
-            background-color: white;
-            border: 1px solid #ccc;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            width: 300px;
-            z-index: 1000;
-        }
-
-        .popup-content h4 {
-            margin-top: 0;
-        }
-
         /* Product card styling */
         .card {
             position: relative;
@@ -84,6 +46,22 @@
         .col-md-4 {
             padding: 10px;
         }
+
+
+        <style>
+    #productDetails p {
+        font-size: 0.85rem; /* Make the font size smaller */
+        margin-left: 15px; /* Add a gap from the left */
+        color: #555; /* Optional: Change the text color for readability */
+        line-height: 1.5; /* Optional: Improve line spacing */
+    }
+
+
+
+    
+</style>
+
+        
     </style>
 </head>
 
@@ -99,79 +77,99 @@
         </div>
 
         <?php
-        // Include your database configuration file
-        include 'Config.php';
-        
-        // Fetch products from the database
-        $Record = mysqli_query($con, "SELECT id, PName, PPrice, PDescription, PImage, PCategory FROM tblproduct");
-        
-        // Loop through products
-        while ($row = mysqli_fetch_array($Record)) {
-            $check_page = $row['PCategory'];
-            if ($check_page === 'Home'); {
-                // Dynamically generate product card with a popup icon
-                echo "
-                <div class='col-md-4'>
-                <form action='Insertcart.php' method='POST'>
-                    <div class='card m-auto'>
+// Include your database configuration file
+include 'Config.php';
 
-                        <!-- Popup Icon -->
-                        <div class='popup-icon' onclick='togglePopup({$row['id']})'>i</div>
+// Fetch products from the database
+$Record = mysqli_query($con, "SELECT id, PName, PPrice, PDescription, PImage, PCategory, PStock, PColor FROM tblproduct");
 
-                        <!-- Image container for uniform sizing -->
-                        <div class='image-container'>
-                            <img src='../admin/product/{$row['PImage']}' class='card-img-top'>
+// Loop through products
+while ($row = mysqli_fetch_array($Record)) {
+    $check_page = $row['PCategory'];
+    if ($check_page === 'Home') ; {
+        // Dynamically generate product card with a popup icon
+        echo "
+        <div class='col-md-4'>
+            <form action='Insertcart.php' method='POST'>
+                <div class='card m-auto' style='width: 300px; height: 450px;'> <!-- Fixed size for uniformity -->
+    
+                    <!-- Image container for uniform sizing -->
+                    <div class='image-container' style='position: relative; height: 200px;'>
+    
+                        <!-- Product Stock Overlay -->
+                        <div style='position: absolute; top: 1px; left: 1px; background: rgba(0, 0, 0, 0.6); color: white; padding: 5px 10px; font-size: 1rem; border-radius: 5px;'>
+                            Stock: {$row['PStock']}
                         </div>
-
-                        <div class='card-body text-center'>
-                            <h5 class='card-title text-danger fs-4 fw-bold'>{$row['PName']}</h5>
-                            <p class='card-text text-danger fs-5 fw-bold'>Rs: {$row['PPrice']}</p>
-
-                            <input type='hidden' name='PName' value='{$row['PName']}'>
-                            <input type='hidden' name='PPrice' value='{$row['PPrice']}'>
-
+    
+                        <!-- Product Price Overlay -->
+                        <div style='position: absolute; top: 1px; right: 1px; background: rgba(255, 0, 0, 0.8); color: white; padding: 5px 10px; font-size: 1rem; border-radius: 5px;'>
+                            Rs: {$row['PPrice']}
+                        </div>
+    
+                        <!-- Image with modal trigger -->
+                        <img src='../admin/product/{$row['PImage']}' class='card-img-top' style='width: 100%; height: 100%; object-fit: cover; cursor: pointer;' onclick='showImageModal(\"../admin/product/{$row['PImage']}\")'>
+                    </div>
+    
+                    <div class='card-body text-center'>
+                        <h5 class='card-title text-danger fs-5 fw-bold'>{$row['PName']}</h5>
+    
+                        <input type='hidden' name='PName' value='{$row['PName']}'>
+                        <input type='hidden' name='PPrice' value='{$row['PPrice']}'>
+                        <input type='hidden' name='PStock' value='{$row['PStock']}'>
+                        <input type='hidden' name='PColor' value='{$row['PColor']}'>
+                        
+                        <!-- Hidden popup display -->
+                        <div id='productDetails{$row['id']}' style='font-size: 0.85rem; margin: 10px 15px 0; color: #555; line-height: 1.5; max-width: 260px; word-wrap: break-word; white-space: normal;'>
+                            <p>{$row['PDescription']}</p>
+                        </div>
+    
+                        <div style='width: 60%; margin: auto; margin-top: 10px; text-align: left;'>
                             <!-- Quantity Input -->
                             <input type='number' name='PQuantity' min='1' max='20' placeholder='Quantity'  
-                                style='width: 60%; padding: 10px; font-size: 1rem; box-sizing: border-box; height: 30px; margin-top: 10px;' required>
-
+                                style='width: 100%; padding: 10px; font-size: 1rem; box-sizing: border-box; height: 25px; margin-bottom: 10px;' required>
+    
                             <!-- Size Select -->
                             <select name='PSize' class='form-select' 
-                                style='width: 60%; margin-right:10px ; padding: 8px; font-size: 0.9rem; box-sizing: border-box; height: 35px; margin-top: 10px;' required>
+                                style='width: 100%; padding: 8px; font-size: 0.9rem; box-sizing: border-box; height: 34px;' required>
                                 <option value='' disabled selected>Select Size</option>
                                 <option value='S'>Small</option>
                                 <option value='M'>Medium</option>
                                 <option value='L'>Large</option>
-                                <option value='XL'>Extra Large</option>
-                            </select><br>
-
-                            <!-- Add to Cart Button -->
-                            <input type='submit' name='addCart' class='btn btn-warning text-white fw-bold' style='width: 80%;' value='Add To Cart'>
+                            </select>
                         </div>
-
-                        <!-- Hidden Popup Content for Product Details -->
-                        <div class='popup-content' id='productDetails{$row['id']}'>
-                            <h4>{$row['PName']} Details</h4>
-                            <p>{$row['PDescription']}</p>
-                        </div>
+                        
+                        <br>
+                        
+                        <!-- Add to Cart Button -->
+                        <input type='submit' name='addCart' class='btn btn-warning text-white fw-bold' style='width: 80%;' value='Add To Cart'>
                     </div>
-                </form>
                 </div>
-                ";
-            }
-        }
-        ?>
-    </div>
-</div>
-
-<script>
-    // Function to toggle the popup visibility
-    function togglePopup(id) {
-        var popup = document.getElementById('productDetails' + id);
-        if (popup) {
-            popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
-        }
-    }
-</script>
+            </form>
+        </div>
+    ";
+                }
+                }
+                ?>
+                
+                <!-- Modal for image popup -->
+                <div id='imageModal' style='display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1000; justify-content: center; align-items: center;'>
+                    <img id='modalImage' src='' style='max-width: 90%; max-height: 90%; border: 5px solid white;'>
+                    <span style='position: absolute; top: 10px; right: 10px; color: white; font-size: 30px; cursor: pointer;' onclick='closeImageModal()'>&times;</span>
+                </div>
+                
+                <script>
+                    function showImageModal(imageSrc) {
+                        const modal = document.getElementById('imageModal');
+                        const modalImage = document.getElementById('modalImage');
+                        modalImage.src = imageSrc;
+                        modal.style.display = 'flex';
+                    }
+                
+                    function closeImageModal() {
+                        const modal = document.getElementById('imageModal');
+                        modal.style.display = 'none';
+                    }
+                </script>
 
 </body>
 </html>
