@@ -463,8 +463,7 @@ while ($row = mysqli_fetch_array($Record)) {
             </form>
             </div>
         </div>
-        ";
-        
+        ";    
     }
 }
 ?>
