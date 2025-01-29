@@ -423,49 +423,48 @@ while ($row = mysqli_fetch_array($Record)) {
     $check_page = $row['PCategory'];
     if ($check_page === 'Winter Wear') {
         echo "
-<div class='product-card' data-product='{$row['PName']}' data-color='{$row['PColor']}' style='width: 290px; height: 390px; margin-left: 40px; margin-bottom: 20px;'>
-    <div class='card m-auto col-md-3' style='width: 100%; height: 100%;'>
-        
-        <div class='image-container' style='position: relative; height: 200px;'>
-         <form action='Insertcart.php' method='POST'>
-            <div style='position: absolute; top: 1px; left: 1px; background: rgba(0, 0, 0, 0.6); color: white; padding: 5px 10px; font-size: 0.9rem; border-radius: 5px;'>
-                Stock: {$row['PStock']}
+        <div class='product-card' data-product='{$row['PName']}' data-color='{$row['PColor']}' style='width: 290px; height: 390px; margin-left: 40px; margin-bottom: 20px;'>
+            <div class='card m-auto col-md-3' style='width: 100%; height: 100%;'>
+                
+                <div class='image-container' style='position: relative; height: 290px;'>
+                 <form action='Insertcart.php' method='POST'>
+                    <div style='position: absolute; top: 1px; left: 1px; background: rgba(0, 0, 0, 0.6); color: white; padding: 5px 10px; font-size: 0.9rem; border-radius: 5px;'>
+                        Stock: {$row['PStock']}
+                    </div>
+                    <div style='position: absolute; top: 1px; right: 1px; background: rgba(255, 0, 0, 0.8); color: white; padding: 5px 10px; font-size: 0.9rem; border-radius: 5px;'>
+                        Rs: {$row['PPrice']}
+                    </div>
+                    <img src='../admin/product/{$row['PImage']}' class='card-img-top' style='width: 100%; height: 100%; object-fit: cover; cursor: pointer;' onclick='showImageModal(\"../admin/product/{$row['PImage']}\")'>
+                </div>
+                <div class='card-body text-center'>
+                    <h5 class='card-title text-danger fs-6 fw-bold' style='font-size: 0.8rem;'>{$row['PName']}</h5>
+                    <div id='productDetails{$row['id']}' style='font-size: 0.8rem; margin: 3px 10px 0; margin-top: -5px; color: #555; line-height: 1.3; max-width: 220px; word-wrap: break-word; white-space: normal;'>
+                        <p>{$row['PDescription']}</p>
+                    </div>
+                    <div style='width: 70%; margin: auto; margin-top: 1px; text-align: left;'>
+                        <input type='number' name='PQuantity' min='1' max='20' placeholder='Quantity'  
+                            style='width: 100%; padding: 6px; font-size: 0.8rem; box-sizing: border-box; height: 25px; margin-bottom: 2px;' required>
+                        <select name='PSize' class='form-select' 
+                            style='width: 100%; padding: 6px; font-size: 0.8rem; box-sizing: border-box; height: 30px; margin-bottom: 2px;' required>
+                            <option value='' disabled selected>Select Size</option>
+                            <option value='S'>Small</option>
+                            <option value='M'>Medium</option>
+                            <option value='L'>Large</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Add to Cart Button -->
+                <input type='hidden' name='PName' value='{$row['PName']}'>
+                <input type='hidden' name='PPrice' value='{$row['PPrice']}'>
+                <input type='hidden' name='PImage' value='{$row['PImage']}'>
+                <input type='hidden' name='PStock' value='{$row['PStock']}'>
+                <input type='submit' name='addCart' class='btn btn-warning text-white fw-bold' style='width: 80%; margin: -10px auto 5%;' value='Add To Cart'>
+                
+            </form>
             </div>
-            <div style='position: absolute; top: 1px; right: 1px; background: rgba(255, 0, 0, 0.8); color: white; padding: 5px 10px; font-size: 0.9rem; border-radius: 5px;'>
-                Rs: {$row['PPrice']}
-            </div>
-            <img src='../admin/product/{$row['PImage']}' class='card-img-top' style='width: 100%; height: 100%; object-fit: cover; cursor: pointer;' onclick='showImageModal(\"../admin/product/{$row['PImage']}\")'>
         </div>
-        <div class='card-body text-center'>
-            <h5 class='card-title text-danger fs-7 fw-bold'>{$row['PName']}</h5>
-            <div id='productDetails{$row['id']}' style='font-size: 0.8rem; margin: 5px 10px 0; color: #555; line-height: 1.3; max-width: 220px; word-wrap: break-word; white-space: normal;'>
-                            <p>{$row['PDescription']}</p>
-                        </div>
-            <div style='width: 70%; margin: auto; margin-top: 10px; text-align: left;'>
-                            <input type='number' name='PQuantity' min='1' max='20' placeholder='Quantity'  
-                                style='width: 100%; padding: 6px; font-size: 0.8rem; box-sizing: border-box; height: 25px; margin-bottom: 10px;' required>
-                            <select name='PSize' class='form-select' 
-                                style='width: 100%; padding: 6px; font-size: 0.8rem; box-sizing: border-box; height: 30px;' required>
-                                <option value='' disabled selected>Select Size</option>
-                                <option value='S'>Small</option>
-                                <option value='M'>Medium</option>
-                                <option value='L'>Large</option>
-                            </select>
-                        </div>
-        </div>
-        <!-- Add to Cart Button -->
-        <input type='hidden' name='PName' value='{$row['PName']}'>
-        <input type='hidden' name='PPrice' value='{$row['PPrice']}'>
-        <input type='hidden' name='PImage' value='{$row['PImage']}'>
-        <input type='hidden' name='PStock' value='{$row['PStock']}'>
-        <input type='submit' name='addCart' class='btn btn-warning text-white fw-bold' style='width: 80%; margin: 10px auto 7%;' value='Add To Cart'>
+        ";
         
-    </form>
-    </div>
-</div>
-
-
-";
     }
 }
 ?>
