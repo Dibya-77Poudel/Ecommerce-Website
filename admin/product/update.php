@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,17 +81,47 @@
 
   </head>
 <body>
-    
+
+ <?php
+// Validate and sanitize the ID parameter
+if (isset($_GET['ID']) && is_numeric($_GET['ID'])) {
+    $id = intval($_GET['ID']); // Use intval to sanitize the input
+
+    // Include the database configuration file
+    include 'Config.php';
+
+    // Prepare the query
+    $stmt = $con->prepare("SELECT * FROM `tblproduct` WHERE Id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Fetch the data
+    if ($result->num_rows > 0) {
+        $data = $result->fetch_assoc();
+        // Use $data as needed
+    } else {
+        echo "No record found.";
+    }
+
+    // Close the statement and connection
+    $stmt->close();
+    $con->close();
+} else {
+    echo "Invalid ID parameter.";
+}
+?>
+
 
 
 <div class="container">
         <nav class="sidebar">
             <h4>FashionWear</h4>
             <ul>
-                <li><a href="../dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="mystore.php"><i class="fas fa-box"></i> Product Detail</a></li>
-                <li><a href="index.php" class="active"><i class="fas fa-cube"></i>Products</a></li>
-                <li><a href="../user.php"><i class="fas fa-tags"></i>Users</a></li>
+                <li><a href="../dashboard.php" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="mystore.php"><i class="fas fa-box"></i> Orders</a></li>
+                <li><a href="index.php"><i class="fas fa-cube"></i>Products</a></li>
+                <li><a href=""><i class="fas fa-tags"></i> Categories</a></li>
                 <li><a href=""><i class="fas fa-cogs"></i> Settings</a></li>
             </ul>
             <button class="logout-btn"><li><a href="form/logout.php" class="text-decoration-none text-white"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
@@ -109,7 +140,7 @@
                 </div>
 
                 <div>
-    <a href="../dashboard.php" class="back-arrow">
+    <a href="../mystore.php" class="back-arrow">
         <span class="back-arrow-icon"></span>
         <span class="back-arrow-tooltip">Go back</span>
     </a>
@@ -123,36 +154,38 @@
 
 
     <div class="container-custom">
-    <a href="index.php" class="add-product-btn">+ Add New Product</a>
-    <div class="row" style="margin-top: -10px;">
-            <div class="col-md-8 m-auto border border-primary mt-2">
+   
+        <div class="row">
+            <div class="col-md-8 m-auto border border-primary mt-3">
 
            
-    <form action="insert.php" method="POST" enctype="multipart/form-data">
+    <form action="update.php" method="POST" enctype="multipart/form-data">
 
     <div class="mb-3">
-    <p class="text-center fw-bold fs-3 text-warning">Product Detail:</p>
+    <p class="text-center fw-bold fs-3 text-warning">Product Update:</p>
 </div>
 
 <div class="mb-3">
   <label class="form-label">Product Name:</label>
-  <input type="text" name="Pname" class="form-control" placeholder="Enter product name">
+  <input type="text"  value="<?php echo $data['PName']?>"  name="Pname" class="form-control" placeholder="Enter product name">
 </div>
 
 <div class="mb-3">
   <label class="form-label">Product Price:</label>
-  <input type="text" name="Pprice" class="form-control" placeholder="Enter product price">
+  <input type="text" value="<?php echo $data['PPrice']?>"  name="Pprice" class="form-control" placeholder="Enter product price">
 </div>
 
 <div class="mb-3">
   <label class="form-label">Add Product Image:</label>
-  <input type="file" name="Pimage"class="form-control" >
+  <input type="file" name="Pimage"class="form-control" ><br>
+  <img src="<?php echo $data['PImage']?>" alt="" style="height:100px;">
 </div>
 
 <div class="mb-3">
-                    <label class="form-label">Product Description:</label>
-                    <textarea name="Pdescription" class="form-control" placeholder="Enter product description" rows="3"></textarea>
-                </div>
+  <label class="form-label">Product Description:</label>
+  <textarea name="Pdescription" class="form-control" placeholder="Enter product description" rows="3"><?php echo htmlspecialchars($data['PDescription']); ?></textarea>
+</div>
+
 
 <div class="mb-3">
   <label class="form-label">Select Page Category</label>
@@ -169,20 +202,56 @@
 
 <div class="mb-3">
   <label class="form-label">Total Stock Available:</label>
-  <input type="number" name="Pstock" class="form-control" placeholder="Enter total stock available" min="0">
+  <input type="number" value="<?php echo $data['PStock']?>" name="Pstock" class="form-control" placeholder="Enter total stock available" min="0">
 </div>
 
 <div class="mb-3">
   <label class="form-label">Color Name:</label>
-  <input type="text" name="Pcolor" class="form-control" placeholder="Enter color name" oninput="updateColorBox(this.value)">
+  <input type="text" value="<?php echo $data['PColor']?>" name="Pcolor" class="form-control" placeholder="Enter color name" oninput="updateColorBox(this.value)">
 </div>
 
-    <button name="submit"class="bg-danger fs-4 fw-bold my-3 form-control text-white">Upload</button>
+    <input type="hidden" name="id" value="<?php echo $data['Id']?>">
+    <button name="update"class="bg-danger fs-4 fw-bold my-3 form-control text-white">Update</button>
 </form>
 
 </div>
         </div>
     </div>
+
+
+
+    <!-- php code update -->
+
+    <?php  
+    
+    if(isset($_POST['update'])){
+        $id = $_POST['id'];
+
+
+        $product_name = $_POST['Pname'];
+        $product_price = $_POST['Pprice'];
+        $product_image = $_FILES['Pimage'];
+        $image_loc = $_FILES['Pimage']['tmp_name'];
+        $image_name = $_FILES['Pimage']['name'];
+           $img_des = "Uploadimage/".$image_name;
+           move_uploaded_file($image_loc, "Uploadimage/".$image_name);
+           $product_description = $_POST['Pdescription'];
+           $product_category = $_POST['PCategory'];
+           $product_stock = $_POST['Pstock'];
+           $product_color = $_POST['Pcolor'];
+
+
+        
+
+           include 'Config.php';
+           mysqli_query($con, "UPDATE `tblproduct` SET `PName`='$product_name',`PPrice`='$product_price',
+                                       `PImage`='$img_des',`PDescription`='$product_description',`PCategory`='$product_category',`PStock`='$product_stock',`PColor`='$product_color' WHERE Id = $id ");
+                                       header("location: mystore.php");
+    }
+    
+    
+    
+    ?>
 
 
   

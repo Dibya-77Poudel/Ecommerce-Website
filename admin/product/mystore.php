@@ -80,7 +80,7 @@
 
   </head>
 <body>
-    
+
 
 
 <div class="container">
@@ -88,10 +88,10 @@
             <h4>FashionWear</h4>
             <ul>
                 <li><a href="../dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="mystore.php"><i class="fas fa-box"></i> Product Detail</a></li>
-                <li><a href="index.php" class="active"><i class="fas fa-cube"></i>Products</a></li>
-                <li><a href="../user.php"><i class="fas fa-tags"></i>Users</a></li>
-                <li><a href=""><i class="fas fa-cogs"></i> Settings</a></li>
+                <li><a href="mystore.php" class="active"><i class="fas fa-box"></i> Product Detail</a></li>
+                <li><a href="index.php"><i class="fas fa-cube"></i> Products</a></li>
+                <li><a href="../user.php"><i class="fas fa-tags"></i> Users</a></li>
+                <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
             </ul>
             <button class="logout-btn"><li><a href="form/logout.php" class="text-decoration-none text-white"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
             
@@ -120,76 +120,72 @@
 
            
 
-
-
-    <div class="container-custom">
-    <a href="index.php" class="add-product-btn">+ Add New Product</a>
-    <div class="row" style="margin-top: -10px;">
-            <div class="col-md-8 m-auto border border-primary mt-2">
-
            
-    <form action="insert.php" method="POST" enctype="multipart/form-data">
-
-    <div class="mb-3">
-    <p class="text-center fw-bold fs-3 text-warning">Product Detail:</p>
-</div>
-
-<div class="mb-3">
-  <label class="form-label">Product Name:</label>
-  <input type="text" name="Pname" class="form-control" placeholder="Enter product name">
-</div>
-
-<div class="mb-3">
-  <label class="form-label">Product Price:</label>
-  <input type="text" name="Pprice" class="form-control" placeholder="Enter product price">
-</div>
-
-<div class="mb-3">
-  <label class="form-label">Add Product Image:</label>
-  <input type="file" name="Pimage"class="form-control" >
-</div>
-
-<div class="mb-3">
-                    <label class="form-label">Product Description:</label>
-                    <textarea name="Pdescription" class="form-control" placeholder="Enter product description" rows="3"></textarea>
-                </div>
-
-<div class="mb-3">
-  <label class="form-label">Select Page Category</label>
-  <select class="form-select" name="PCategory">
-  <option value="Home">HOME</option>
-  <option value="Traditional Wear">TRADITIONAL WEAR</option>
-  <option value="Cultural Wear">CULTURAL WEAR</option>
-  <option value="Western Wear">WESTERN WEAR</option>
-  <option value="Trending Wear">TRENDING WEAR</option>
-  <option value="Weeding Wear">WEEDING WEAR</option>
-  <option value="Winter Wear">WINTER WEAR</option>
-</select>
-</div>
-
-<div class="mb-3">
-  <label class="form-label">Total Stock Available:</label>
-  <input type="number" name="Pstock" class="form-control" placeholder="Enter total stock available" min="0">
-</div>
-
-<div class="mb-3">
-  <label class="form-label">Color Name:</label>
-  <input type="text" name="Pcolor" class="form-control" placeholder="Enter color name" oninput="updateColorBox(this.value)">
-</div>
-
-    <button name="submit"class="bg-danger fs-4 fw-bold my-3 form-control text-white">Upload</button>
-</form>
-
-</div>
-        </div>
-    </div>
+ 
+   
 
 
   
 <!---fetch data----->
 
 
+   
+<div> <a href="index.php" class="add-product-btn">+ Add New Product</a></div>
+   
   
+<table class="table table-secondary table-bordered">
+<thead class="text-center">
+      <th>Id</th>                              
+      <th>Name</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th>Image</th>
+      <th>Stock</th>
+      <th>Color</th>
+      <th>Delete</th>
+      <th>Update</th>
+  </thead>
+
+  <tbody class="text-center text-danger">
+    <?php
+  include 'Config.php';
+  $product_record = mysqli_query($con,"SELECT * FROM `tblproduct`");
+  $product_row_count = mysqli_num_rows($product_record); 
+?>
+<?php
+
+$i = 0;
+while ($row = mysqli_fetch_array($product_record)){
+ echo " 
+ <tr>
+         <td>"; ?><?php echo ++$i; ?><?php echo "</td>
+<td>$row[PName]</td>
+<td>$row[PPrice]</td>
+<td>{$row['PDescription']}</td>
+<td>$row[PCategory]</td>
+<td><img src='$row[PImage]' height='53px' width='60px'></td>
+<td>$row[PStock]</td>
+<td>$row[PColor]</td>
+<td><a href='delete.php? ID= $row[Id]' class='btn btn-outline-danger'>Delete</a></td>
+<td><a href='update.php? ID= $row[Id]' class = 'btn btn-outline-warning' >Update</a></td>
+
+  </tr>
+ ";
+}
+
+   ?>
+  </tbody>
+
+</table>
+<hr>
+<div class="col-md-1 pr-5 text-center">
+            <h3 class="text-dark">Total:<?php echo $product_row_count; ?></h3>
+           
+         </div>
+</div>
+  </div>
+</div>
 
 </body>
 
@@ -214,7 +210,10 @@ body {
     display: flex;
     height: 100vh; /* Ensure full height */
     background-color: #ecf0f5;
+    
 }
+
+
 
 .sidebar {
     width: 220px;
@@ -319,46 +318,6 @@ header {
 .user i {
     margin-right: 5px; /* Space between icon and text */
 }
-
-.container-custom {
-     /* Ensure it respects nearby elements */
-    top: -20px; /* Move it upwards */
-    /* Remove any default margin from the top */
-    padding: -70px; /* Adjust padding if necessary */
-    background-color: #f8f9fa; /* Example background color */
-    border: 1px solid #ccc; /* Example border */
-    border-radius: 5px; /* Optional rounded corners */
-}
-
-.container-custom {
-            position: relative;
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .add-product-btn {
-            position: absolute;
-            top: 30px;
-            right: 10px;
-            padding: 7px 10px;
-            background-color:rgb(34, 94, 173); /* Light blue color */
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-        .add-product-btn:hover {
-            background-color:rgb(74, 126, 238); /* Slightly darker blue on hover */
-        }
-
-
-
 
 
 

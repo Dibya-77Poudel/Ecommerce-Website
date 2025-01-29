@@ -15,7 +15,7 @@ if(mysqli_num_rows($result)){
     echo"
     <script>
     alert('Login successfully!');
-    window.location.href='../mystore.php';
+    window.location.href='../dashboard.php';
         </script>
     ";
 }

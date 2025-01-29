@@ -11,6 +11,7 @@ if (isset($_POST['submit'])) {
     $Email = $_POST['email'];
     $Number = $_POST['number'];
     $Password = $_POST['password'];
+    $ConfirmPassword=$_POST['confirmpassword'];
 
     // Validate password: must be greater than 5 characters and contain at least one special character
     if (strlen($Password) <= 5 || !preg_match('/[^a-zA-Z0-9]/', $Password)) {
@@ -22,6 +23,16 @@ if (isset($_POST['submit'])) {
         ";
         exit();
     }
+    //Validating password and confirm password
+    if($Password!=$ConfirmPassword){
+        echo "
+        <script>
+        alert('Password do not match.');
+        window.location.href = 'register.php';
+        </script>
+        ";
+    }
+
 
     // Validate number: must be exactly 10 digits and start with 98
     if (!preg_match('/^\d{10}$/', $Number)) {
@@ -35,7 +46,7 @@ if (isset($_POST['submit'])) {
     }
     
     // Hash the password if validation is successful
-    $Password = password_hash($Password, PASSWORD_BCRYPT);
+    //$Password = password_hash($Password, PASSWORD_BCRYPT);
 
     // Check for duplicate email or username
     $Dup_Email = mysqli_query($Con, "SELECT * FROM `tbluser` WHERE Email = '$Email'");

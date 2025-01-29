@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ViewCart</title>
+    <title>Traditional Wear</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="css/style.css">
@@ -23,9 +23,43 @@
 
 
 <style>
+    /* Popup icon styling */
+    .popup-icon {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: white;
+        color: black;
+        font-size: 20px; /* Font size */
+        padding: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 30px; /* Icon width */
+        height: 30px; /* Icon height */
+        text-align: center;
+        line-height: 18px; /* Match line height to height */
+        z-index: 1000;
+        font-weight: bold; /* Bold font */
+        margin-top: -2px; /* Adjust this value to move the symbol up */
+    }
     
-    
-    
+    /* Popup content styling */
+    .popup-content {
+        display: none;
+        position: absolute;
+        top: 50px;
+        left: 10px;
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        width: 300px;
+        z-index: 1000;
+    }
+
+    .popup-content h4 {
+        margin-top: 0;
+    }
 
     /* Product card styling */
     .card {
@@ -145,6 +179,81 @@
 
 
 
+/* Sidebar trigger area */
+.sidebar-container {
+    position: fixed;
+    top: 120px; /* Sidebar starts 10px from the top */
+    left: 0;
+    height: calc(70vh - 10px); /* Adjust height to match viewport minus top offset */
+    width: 175px; /* Thin activation area */
+    z-index: 1000;
+    background-color: transparent;
+    overflow: hidden; /* Prevent content overflow */
+}
+
+/* Hidden sidebar */
+.container {
+    position: absolute;
+    top: 40;
+    left: -160px; /* Initially hidden off-screen */
+    width: 180px; /* Sidebar width */
+    height: 90%; /* Full height relative to the parent */
+    background-color: #E0E0E0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: left 0.3s ease; /* Smooth slide-in effect */
+}
+
+/* Show sidebar when hovering over the container */
+.sidebar-container:hover .container {
+    left: 0; /* Bring into view */
+}
+
+/* Styling for each box */
+.wear-box {
+    width: 100%; /* Full width inside the sidebar */
+    height: 40px;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: capitalize;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Hover effect on wear-box */
+.wear-box:hover {
+    transform: scale(1.03);
+    background-color: #ffccd5;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Button inside each box */
+.cta-button {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.wear-box:hover .cta-button {
+    color: white;
+}
+
+
+
 
 </style>
 
@@ -174,31 +283,31 @@
 
     <nav class="navbar" style="position: relative; width: 100%; padding: 5px 20px; display: flex; flex-direction: column;">
         <!-- Navigation links -->
-        <ul style="list-style: none; display: flex; justify-content: flex-end; margin: 6px; padding: 0; margin-right: 90px;">
+        <ul style="list-style: none; display: flex; justify-content: flex-end; margin: -2px; padding: 0; margin-right: 90px;">
             <li style="margin: 0 10px;">
-                <a href="index.php"  style="text-decoration: none; font-size: 17px;">
+                <a href="index.php" class="nav-icon" style="text-decoration: none; font-size: 17px;">
                     <i class="fas fa-home"></i> Home
                 </a>
             </li>
             <li style="margin: 0 10px;">
-                <a href="about.php" style="text-decoration: none; font-size: 17px;">
+                <a href="about.php" class="nav-icon" style="text-decoration: none; font-size: 17px;">
                     <i class="fas fa-info-circle"></i> About
                 </a>
             </li>
             <li style="margin: 0 10px;">
-                <a href="#products"  style="text-decoration: none; font-size: 17px;">
+                <a href="#products" class="nav-icon" style="text-decoration: none; font-size: 17px;">
                     <i class="fas fa-th"></i> Products
                 </a>
             </li>
             
             <li style="margin: 0 10px;" class="cart-icon">
-                <a href="viewCart.php" class="active" style="text-decoration: none; font-size: 17px;">
+                <a href="viewCart.php" class="nav-icon" style="text-decoration: none; font-size: 17px;">
                     <i class="fas fa-shopping-cart"></i> Cart
                 </a>
                 <span class="cart-count"><?php echo $count ?></span>
             </li>
             <li style="margin: 0 10px;">
-                <a href="" style="text-decoration: none; font-size: 17px;">
+                <a href="" class="nav-icon" style="text-decoration: none; font-size: 17px;">
                     <i class=""></i> Contact Us
                 </a>
             </li>
@@ -222,7 +331,6 @@
     }
     ?>
 </li>
-
         </ul>
         
        
@@ -230,6 +338,7 @@
      <div class="search-container" style="display: flex; align-items: center; justify-content: center; margin: 10px auto 0; padding: 5px; width: 90%; max-width: 800px;">
                 <form method="GET" action="" style="width: 100%; display: flex;">
                     <input type="text" name="search" placeholder="Search..." class="search-box"
+                        value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>"
                         style="border: 1px solid #ccc; width: 100%; padding: 6px; border-radius: 4px; font-size: 14px; outline: none;">
                     <button type="submit" style="margin-left: 8px; margin-right: 75px; font-size: 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; padding: 7px 16px; cursor: pointer;">
                         <i class="fas fa-search"></i>
@@ -237,98 +346,13 @@
                 </form>
             </div>
 
-
-
-
     </nav>
+
+
     <div>
-    <a href="index.php" class="back-arrow">
+    <a href="all.php" class="back-arrow">
         <span class="back-arrow-icon"></span>
         <span class="back-arrow-tooltip">Go back</span>
     </a>
 </div>
 </header>
-
-
-    
-
-    <div class="row">
-        <div class="col-lg-12 text-center bg-light mb-5 rounded">
-            <h1 class="text-warning">My Cart</h1>
-        </div>
-    </div>
-
-<div class="container">
-<table class="table table-secondary table-bordered">
-<thead class="text-center">
-                    <th>Serial no.</th>
-                    <th>Product Name</th>
-                    <th>Product Price</th>
-                    <th>Product Quantity</th>
-                    <th>Total Price</th>
-                    <th>Update</th>
-                    <th>Delete</th>
-                </thead>
-                <tbody class="text-center text-danger">
-    <?php
-  
-    $total_price = 0;
-    if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as $key => $value) {
-            $product_price = (float) $value['productPrice'];
-            $product_quantity = (int) $value['productQuantity'];
-            $product_total = $product_price * $product_quantity;
-            $total_price += $product_total;
-
-            echo "
-            <form action='Insertcart.php' method='POST'>
-            <tr>
-                <td>".($key + 1)."</td>
-                
-                <td><input type='text' name='PName_$key' value='{$value['productName']}' readonly></td>
-                <td><input type='number' name='PPrice_$key' value='{$product_price}' readonly></td>
-                <td><input type='number' name='PQuantity_$key' value='{$product_quantity}' min='1'></td>
-                <td>$product_total</td>
-                <td><button name='update_$key' class='btn btn-warning'>Update</button></td>
-                <td><button name='remove_$key' class='btn btn-danger'>Delete</button></td>
-                
-            </tr>
-          
-            </form>
-            ";
-        }
-    } else {
-        echo "
-        <tr>
-            <td colspan='7'>Your cart is empty.</td>
-        </tr>
-        ";
-    }
-    ?>
-</tbody>
-</div>
-
-         </table>
-            <div class="text-end">
-                <h3>Total Price: <?php echo $total_price; ?></h3>
-            </div>
-            <div class="text-center" style="margin-top: 20px; margin-left: 210px;">
-   <a href="checkout.php" class="btn btn-primary" style="padding: 5.5px 17px; font-size: 1.1rem; border-radius: 5px;">
-      Proceed to Checkout
-   </a>
-</div>
-        </div>
-    </div>
-</div>
-
-<style>
-    .navbar ul li a.active
- {
-    background-color:rgb(255, 126, 190);
-    border-radius: 5px;
-    padding: 12px;
-}
-</style>
-
-</body>
-</html>

@@ -82,14 +82,21 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="">UserNumber:</label>
+                    <label for="">Phone Number:</label>
                     <input type="number" name="number" placeholder="Enter User Number" class="form-control">
                 </div>
 
                 <div class="mb-3">
-                    <label for="">UserPassword</label>
+                    <label for="">Password</label>
                     <input type="password" name="password"  placeholder="Enter Password" class="form-control">
                 </div>
+
+                <div class="mb-3">
+                    <label for="">ConfirmPassword</label>
+                    <input type="password" name="confirmpassword"  placeholder="Confirm Password" class="form-control">
+                </div>
+
+                
 
                 <div class="mb-3">
                     
@@ -109,6 +116,8 @@
         </div>
     </div>
 
+    
+
     <header>
     <div>
     <a href="../index.php" class="back-arrow">
@@ -117,5 +126,9 @@
     </a>
 </div>
     </header>
+
+
+    
+    
 </body>
 </html>

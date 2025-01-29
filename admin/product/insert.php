@@ -20,7 +20,7 @@ if(isset($_POST['submit'])){
     mysqli_query($con,"   INSERT INTO `tblproduct`( `PName`, `PPrice`, `PImage`, `PDescription`, `PCategory`,`PStock`,`PColor`) 
     VALUES ('$product_name','$product_price','$img_des','$product_description','$product_category','$product_stock','$product_color')");
 
-    header("location:index.php");
+    header("location:mystore.php");
 
 
     }

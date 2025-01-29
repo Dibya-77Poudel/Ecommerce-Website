@@ -8,30 +8,18 @@
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<?php
-session_start();
-if (!isset($_SESSION['admin'])) {
-    header("location: form/login.php");
-    exit;
-}
-?>
-
-    <div class="container">
+<div class="container">
         <nav class="sidebar">
             <h4>FashionWear</h4>
             <ul>
-                <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="#"><i class="fas fa-box"></i> Orders</a></li>
+                <li><a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="./product/mystore.php"><i class="fas fa-box"></i> Orders</a></li>
                 <li><a href="./product/index.php"><i class="fas fa-cube"></i>Products</a></li>
-                <li><a href="#"><i class="fas fa-tags"></i> Categories</a></li>
+                <li><a href="user.php" class="active"><i class="fas fa-user"></i> Users</a></li>
                 <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
             </ul>
             <button class="logout-btn"><li><a href="form/logout.php" class="text-decoration-none text-white"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
@@ -39,7 +27,7 @@ if (!isset($_SESSION['admin'])) {
             </button> 
         </nav>
 
-        <div class="main-content">
+        <div class="main-content col-md-11">
             <header>
                 <div class="search-bar">
                     <input type="text" placeholder="Search Product..">
@@ -50,29 +38,57 @@ if (!isset($_SESSION['admin'])) {
                 </div>
             </header>
 
-            <div class="dashboard" style="display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
-  <div class="card" style="flex: 1; max-width: 22%; padding: 20px; text-align: center; background-color: #f4f4f4; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-    <h3><i class="fas fa-shopping-cart"></i> Total Orders</h3>
-    <p>0</p>
-  </div>
-  <div class="card" style="flex: 1; max-width: 22%; padding: 20px; text-align: center; background-color: #f4f4f4; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-    <h3><i class="fas fa-box"></i> Total Products</h3>
-    <p>0</p>
-  </div>
-  <div class="card" style="flex: 1; max-width: 22%; padding: 20px; text-align: center; background-color: #f4f4f4; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-    <h3><i class="fas fa-tags"></i> Total Categories</h3>
-    <p>0</p>
-  </div>
-  <div class="card" style="flex: 1; max-width: 22%; padding: 20px; text-align: center; background-color: #f4f4f4; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-    <h3><i class="fas fa-dollar-sign"></i> Total Revenue</h3>
-    <p>0</p>
-  </div>
-</div>
 
-    </div>
 
-    <!-- Bootstrap JS (Optional) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ppWCBNhlwTQdH7OxyRXIBLGDFNyRC1cIvFJk9ZFFzPi5Kj2LsmneZtjbISdeDZsj" crossorigin="anonymous"></script>
+            <?php
+            
+            $con = mysqli_connect('localhost','root','','ecommerce');
+            $Record = mysqli_query($con , "SELECT * FROM `tbluser`");
+            $row_count = mysqli_num_rows($Record);
+            ?>
+
+            <table class="table table-secondary table-bordered">
+    <thead class="text-center">
+        <th>S.N</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Number</th>
+        <th>Delete</th>  
+    </thead>
+
+    <tbody class="text-center text-danger">
+    <?php
+
+    $i = 0;
+   while( $row = mysqli_fetch_array($Record)){
+    echo " 
+    <tr>
+            <td>"; ?><?php echo ++$i; ?><?php echo "</td>
+            <td>$row[UserName]</td>
+            <td>$row[Email]</td>
+            <td>$row[Number]</td>
+          <td>
+  <a href='delete.php? ID=$row[Id]' class='btn btn-outline-danger' style='padding: 5px 10px; font-size: 16px;'>Delete</a>
+</td>
+
+        </tr>
+        ";
+   
+   }
+    
+    ?>
+
+    </tbody>
+</table>
+         </div>
+
+         <div class="col-md-1 pr-5 text-center">
+            <h3 class="text-danger">Total</h3>
+            <h1 class="bg-danger text-white"> <?php echo $row_count; ?></h1>
+         </div>
+
+         
+   
 
 
 </body>

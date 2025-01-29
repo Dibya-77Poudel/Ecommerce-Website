@@ -206,8 +206,8 @@
             <li style="margin: 0; position: absolute; right: 40px; top: 30px; font-size: 16px; display: inline-flex; align-items: center;">
     <i class="fas fa-hand-paper" style="margin-right: 5px;"></i> Hey there, 
     <?php
-    if (isset($_SESSION['email'])) {
-       
+    if (isset($_SESSION['user'])) {
+        echo $_SESSION['user'];
         echo '
             <a href="form/logout.php" class="nav-icon" style="text-decoration: none; margin-left: 1px; display: inline-flex; align-items: center;">
                 <i class="fas fa-user-shield" style="margin-right: 2px;"></i> Logout
@@ -227,16 +227,12 @@
         
        
      <!-- Search bar -->
-     <div class="search-container" style="display: flex; align-items: center; justify-content: center; margin: 10px auto 0; padding: 5px; width: 90%; max-width: 800px;">
-                <form method="GET" action="" style="width: 100%; display: flex;">
-                    <input type="text" name="search" placeholder="Search..." class="search-box"
-                        style="border: 1px solid #ccc; width: 100%; padding: 6px; border-radius: 4px; font-size: 14px; outline: none;">
-                    <button type="submit" style="margin-left: 8px; margin-right: 75px; font-size: 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; padding: 7px 16px; cursor: pointer;">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-            </div>
-
+     <div class="search-container" style="display: flex; align-items: center; justify-content: center; margin: 5px auto 0; padding: 5px; margin-left: 160px; width: 90%; max-width: 800px;">
+    <div style="position: relative; width: 90%;">
+        <i class="fas fa-search" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: deeppink; font-size: 16px;"></i>
+        <input type="text" placeholder="Search..." class="search-box" style="border: 1px solid #ccc; width: 100%; padding: 7px 7px 7px 10px; border-radius: 4px; font-size: 15px; outline: none;">
+    </div>
+</div>
 
 
 
@@ -251,73 +247,18 @@
 
 
     
-
+<div class="container">
     <div class="row">
         <div class="col-lg-12 text-center bg-light mb-5 rounded">
-            <h1 class="text-warning">My Cart</h1>
+            <h1 class="text-warning">My Orders</h1>
         </div>
     </div>
-
-<div class="container">
-<table class="table table-secondary table-bordered">
-<thead class="text-center">
-                    <th>Serial no.</th>
-                    <th>Product Name</th>
-                    <th>Product Price</th>
-                    <th>Product Quantity</th>
-                    <th>Total Price</th>
-                    <th>Update</th>
-                    <th>Delete</th>
-                </thead>
-                <tbody class="text-center text-danger">
-    <?php
-  
-    $total_price = 0;
-    if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as $key => $value) {
-            $product_price = (float) $value['productPrice'];
-            $product_quantity = (int) $value['productQuantity'];
-            $product_total = $product_price * $product_quantity;
-            $total_price += $product_total;
-
-            echo "
-            <form action='Insertcart.php' method='POST'>
-            <tr>
-                <td>".($key + 1)."</td>
-                
-                <td><input type='text' name='PName_$key' value='{$value['productName']}' readonly></td>
-                <td><input type='number' name='PPrice_$key' value='{$product_price}' readonly></td>
-                <td><input type='number' name='PQuantity_$key' value='{$product_quantity}' min='1'></td>
-                <td>$product_total</td>
-                <td><button name='update_$key' class='btn btn-warning'>Update</button></td>
-                <td><button name='remove_$key' class='btn btn-danger'>Delete</button></td>
-                
-            </tr>
-          
-            </form>
-            ";
-        }
-    } else {
-        echo "
-        <tr>
-            <td colspan='7'>Your cart is empty.</td>
-        </tr>
-        ";
-    }
-    ?>
-</tbody>
 </div>
 
-         </table>
-            <div class="text-end">
-                <h3>Total Price: <?php echo $total_price; ?></h3>
-            </div>
-            <div class="text-center" style="margin-top: 20px; margin-left: 210px;">
-   <a href="checkout.php" class="btn btn-primary" style="padding: 5.5px 17px; font-size: 1.1rem; border-radius: 5px;">
-      Proceed to Checkout
-   </a>
-</div>
-        </div>
+<div class="container-fluid">
+    <div class="row justify-content-around">
+        <div class="col-sm-12 col-md-6 col-lg-9">
+             </div>
     </div>
 </div>
 
@@ -329,6 +270,30 @@
     padding: 12px;
 }
 </style>
+
+
+<?php
+ // Start session to access session variables
+
+if (isset($_SESSION['order_success_message'])) {
+    echo "
+    <p id='successMessage' style='color: green; font-weight: bold; font-size: 24px; position: fixed; top: 130px; right: 20px; z-index: 1000;'>"
+         . $_SESSION['order_success_message'] .
+         "</p>";
+    unset($_SESSION['order_success_message']); // Clear the message after displaying
+}
+?>
+
+<script>
+    // Hide the message after 4 seconds
+    setTimeout(function() {
+        var message = document.getElementById('successMessage');
+        if (message) {
+            message.style.display = 'none';
+        }
+    }, 3000);
+</script>
+
 
 </body>
 </html>

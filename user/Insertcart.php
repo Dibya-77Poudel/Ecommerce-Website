@@ -2,6 +2,10 @@
 
 session_start();
 
+if(isset($_SESSION['email'])){
+
+
+
 // Check if the addCart form was submitted
 if (isset($_POST['addCart'])) {
     if (isset($_POST['PName']) && isset($_POST['PPrice']) && isset($_POST['PQuantity'])) {
@@ -59,6 +63,10 @@ foreach ($_SESSION['cart'] as $key => $value) {
         exit(); // Stop the script after redirection
     }
 }
+}
 
+else{
+    header("location:form/register.php");
+}
 
 ?>

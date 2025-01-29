@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ladies Fashion E-commerce</title>
+    <title>A B2C Fashion Wear Application</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="css/style.css">
@@ -54,47 +54,81 @@
         .logo-image {
             max-width: 80px; /* Reduced size to make header appear smaller */
             height: auto;
+            padding: 9px;
         }
     </style>
 
     <nav class="navbar" style="position: relative; width: 100%; padding: 5px 20px; display: flex; flex-direction: column;">
         <!-- Navigation links -->
-        <ul style="list-style: none; display: flex; justify-content: flex-end; margin: 0; padding: 0;">
+        <ul style="list-style: none; display: flex; justify-content: flex-end; margin: 6px; padding: 0; margin-right: 90px;">
             <li style="margin: 0 10px;">
-                <a href="index.php" class="nav-icon" style="text-decoration: none;">
+                <a href="index.php" class="active" style="text-decoration: none; font-size: 17px;">
                     <i class="fas fa-home"></i> Home
                 </a>
             </li>
             <li style="margin: 0 10px;">
-                <a href="#about" class="nav-icon" style="text-decoration: none;">
+                <a href="about.php" style="text-decoration: none; font-size: 17px;">
                     <i class="fas fa-info-circle"></i> About
                 </a>
             </li>
             <li style="margin: 0 10px;">
-                <a href="#products" class="nav-icon" style="text-decoration: none;">
+                <a href="#products"  style="text-decoration: none; font-size: 17px;">
                     <i class="fas fa-th"></i> Products
                 </a>
             </li>
             
             <li style="margin: 0 10px;" class="cart-icon">
-                <a href="viewCart.php" class="nav-icon" style="text-decoration: none;">
+                <a href="viewCart.php"  style="text-decoration: none; font-size: 17px;">
                     <i class="fas fa-shopping-cart"></i> Cart
                 </a>
                 <span class="cart-count"><?php echo $count ?></span>
             </li>
             <li style="margin: 0 10px;">
-                <a href="form/register.php" class="nav-icon" style="text-decoration: none;">
-                    <i class="fas fa-user"></i> Account
+                <a href=""  style="text-decoration: none; font-size: 17px;">
+                    <i class=""></i> Contact Us
                 </a>
             </li>
+
+            <li style="margin: 0; position: absolute; right: 40px; top: 30px; font-size: 16px; display: inline-flex; align-items: center;">
+    <i class="fas fa-hand-paper" style="margin-right: 5px;"></i> Hey there, 
+    <?php
+    if (isset($_SESSION['email'])) {
+       
+        echo '
+            <a href="form/logout.php" class="nav-icon" style="text-decoration: none; margin-left: 1px; display: inline-flex; align-items: center;">
+                <i class="fas fa-user-shield" style="margin-right: 2px;"></i> Logout
+            </a>
+        ';
+    } else {
+        echo '
+            <a href="form/register.php" class="nav-icon" style="text-decoration: none; margin-left: 1px; display: inline-flex; align-items: center;">
+                <i class="fas fa-user-shield" style="margin-right: 1px;"></i> Signup/Register
+            </a>
+        ';
+    }
+    ?>
+</li>
+
         </ul>
-        <!-- Search bar -->
-        <div class="search-container" style="display: flex; align-items: center; justify-content: center; margin: 10px auto 0; padding: 5px; width: 90%; max-width: 800px;">
-            <input type="text" placeholder="Search..." class="search-box" style="border: 1px solid #ccc; width: 100%; padding: 8px; border-radius: 4px; font-size: 14px; outline: none;">
-            <i class="fas fa-search" style="margin-left: 10px; font-size: 16px;"></i>
-        </div>
-    </nav>
-</header>
+        
+       
+     <!-- Search bar -->
+     <div class="search-container" style="display: flex; align-items: center; justify-content: center; margin: 2px auto 0; padding: 3px; width: 90%; max-width: 800px; margin-left: 200px;">
+    <input type="text" id="searchBox" placeholder="Search..." class="search-box" style="border: 1px solid #ccc; width: 73%; padding: 8px; border-radius: 4px; font-size: 14px; outline: none;">
+    <!-- <i class="fas fa-search" style="margin-left: 10px; font-size: 16px;"></i> -->
+    <select id="colorFilter" class="search-box" style="border: 1px solid #ccc; padding: 8px; border-radius: 4px; font-size: 14px; outline: none; max-width: 100px; margin-left: 10px;">
+        <option value="">All Colors</option>
+        <option value="Red">Red</option>
+        <option value="Blue">Blue</option>
+        <option value="Green">Green</option>
+        <!-- Add more color options as needed -->
+    </select>
+</div>
+<div id="productContainer" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 10px;">
+
+        </nav>
+       
+    </header>
 
 
 
@@ -121,7 +155,7 @@
         align-items: center;
         justify-content: center;
         padding: 20px;
-        background-color: #fdfdfd;
+        background-color:rgb(250, 247, 247);
         position: relative;
         overflow: hidden;
     }
@@ -171,6 +205,12 @@
         background-color: #e60073; /* Slightly darker pink on hover */
     }
 
+    .navbar ul li a.active {
+    background-color:rgb(255, 126, 190);
+    border-radius: 5px;
+    padding: 12px;
+}
+
     .hero-image {
         flex: 1;
         max-width: 50%;
@@ -184,6 +224,8 @@
         height: auto;
         object-fit: contain; /* Keeps the original image quality */
     }
+
+
 
     @media (max-width: 768px) {
         .hero-content {
@@ -225,9 +267,6 @@
             navbarMenu.classList.toggle('active');
         });
     </script>
-
-
-
 
 
 <div class="container mt-3">
