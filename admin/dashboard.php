@@ -29,8 +29,8 @@ if (!isset($_SESSION['admin'])) {
             <h4>FashionWear</h4>
             <ul>
                 <li><a href="dashboard.php" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="./product/mystore.php"><i class="fas fa-box"></i> Product Detail</a></li>
-                <li><a href="./product/index.php"><i class="fas fa-cube"></i>Products</a></li>
+                <li><a href="./product/mystore.php"><i class="fas fa-box"></i> Product</a></li>
+                <li><a href=""><i class="fas fa-cube"></i>Order</a></li>
                 <li><a href="user.php"><i class="fas fa-user"></i> Users</a></li>
                 <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
              
@@ -311,7 +311,7 @@ header {
     border-radius: 5px;  /* Rounded corners */
     background-color: #f8f8f8;  /* Light gray background */
     display: inline-block;  /* Keeps the box inline */
-    width: 100%;  /* Makes it span the full width of its parent */
+    width: 100px;  /* Makes it span the full width of its parent */
     text-align: center;  /* Centers the link inside the box */
     cursor: pointer;
 }
@@ -326,6 +326,8 @@ header {
     color: #0056b3;  /* Darker blue when hovering */
     text-decoration: underline;  /* Underline the link on hover */
 }
+
+
 
 </style>
 

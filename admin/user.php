@@ -8,6 +8,9 @@
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+     <!-- Font Awesome CDN -->
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,8 +20,8 @@
             <h4>FashionWear</h4>
             <ul>
                 <li><a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="./product/mystore.php"><i class="fas fa-box"></i> Orders</a></li>
-                <li><a href="./product/index.php"><i class="fas fa-cube"></i>Products</a></li>
+                <li><a href="./product/mystore.php"><i class="fas fa-box"></i> Product</a></li>
+                <li><a href=""><i class="fas fa-cube"></i>Order</a></li>
                 <li><a href="user.php" class="active"><i class="fas fa-user"></i> Users</a></li>
                 <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
             </ul>
@@ -80,12 +83,15 @@
 
     </tbody>
 </table>
+
+<hr>
+<div class="col-md-2 pr-5 text-center">
+            <h3 class="text-dark">Total: <?php echo $row_count; ?></h3>
+            
+         </div>
          </div>
 
-         <div class="col-md-1 pr-5 text-center">
-            <h3 class="text-danger">Total</h3>
-            <h1 class="bg-danger text-white"> <?php echo $row_count; ?></h1>
-         </div>
+        
 
          
    

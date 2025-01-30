@@ -31,6 +31,7 @@ if (isset($_POST['submit'])) {
         window.location.href = 'register.php';
         </script>
         ";
+        exit();
     }
 
 
@@ -49,8 +50,8 @@ if (isset($_POST['submit'])) {
     //$Password = password_hash($Password, PASSWORD_BCRYPT);
 
     // Check for duplicate email or username
-    $Dup_Email = mysqli_query($Con, "SELECT * FROM `tbluser` WHERE Email = '$Email'");
-    $Dup_username = mysqli_query($Con, "SELECT * FROM `tbluser` WHERE UserName = '$Name'");
+    $Dup_Email = mysqli_query($Con, "SELECT * FROM tbluser WHERE Email = '$Email'");
+    $Dup_username = mysqli_query($Con, "SELECT * FROM tbluser WHERE UserName = '$Name'");
 
     if (mysqli_num_rows($Dup_Email)) {
         echo "
@@ -68,7 +69,7 @@ if (isset($_POST['submit'])) {
         ";
     } else {
         // Insert the data into the database
-        $query = "INSERT INTO `tbluser`(`UserName`, `Email`, `Number`, `Password`) VALUES ('$Name', '$Email', '$Number', '$Password')";
+        $query = "INSERT INTO tbluser(UserName, Email, Number, Password) VALUES ('$Name', '$Email', '$Number', '$Password')";
         if (mysqli_query($Con, $query)) {
             echo "
             <script>

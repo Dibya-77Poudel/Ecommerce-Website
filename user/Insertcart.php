@@ -66,7 +66,7 @@ foreach ($_SESSION['cart'] as $key => $value) {
 }
 
 else{
-    header("location:form/register.php");
+    header("location:form/login.php");
 }
 
 ?>

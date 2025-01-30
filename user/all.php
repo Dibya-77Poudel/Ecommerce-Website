@@ -281,6 +281,22 @@ if (isset($_SESSION['cart'])) {
 
 <body>
 
+<script>
+    // Store scroll position before refreshing
+    window.addEventListener("beforeunload", function () {
+        localStorage.setItem("scrollPosition", window.scrollY);
+    });
+
+    // Restore scroll position after page loads
+    window.addEventListener("load", function () {
+        let scrollPosition = localStorage.getItem("scrollPosition");
+        if (scrollPosition !== null) {
+            window.scrollTo(0, scrollPosition);
+            localStorage.removeItem("scrollPosition"); // Remove after restoring to prevent issues
+        }
+    });
+</script>
+
 
     <header class="header" style="padding: 5px 0; height: auto;">
         <div class="logo">
@@ -411,63 +427,91 @@ if (isset($_SESSION['cart'])) {
                     </div>
                 </div>
 
+
+
                 <?php
 // Include your database configuration file
 include 'Config.php';
 
-// Fetch products from the database
-$Record = mysqli_query($con, "SELECT id, PName, PPrice, PDescription, PImage, PCategory, PStock, PColor FROM tblproduct");
+// Get sorting option from user selection (default is ascending by name)
+$order_by = isset($_GET['order_by']) ? $_GET['order_by'] : 'PName'; // Default to name
+$sort_order = isset($_GET['sort_order']) ? $_GET['sort_order'] : 'ASC'; // Default to ascending
 
+// Validate input to prevent SQL injection
+$allowed_columns = ['PName', 'id']; // Allow sorting only by name or ID (ID for newest/oldest)
+$allowed_orders = ['ASC', 'DESC'];
+
+if (!in_array($order_by, $allowed_columns)) {
+    $order_by = 'PName';
+}
+
+if (!in_array($sort_order, $allowed_orders)) {
+    $sort_order = 'ASC';
+}
+
+// Fetch products from the database with sorting
+$Record = mysqli_query($con, "SELECT id, PName, PPrice, PDescription, PImage, PCategory, PStock, PColor FROM tblproduct ORDER BY $order_by $sort_order");
+
+?>
+
+<!-- Sorting Buttons -->
+<div style="margin-bottom: 20px; margin-left: 817px;">
+<a href="?order_by=id&sort_order=DESC" class="btn sort-btn custom-light-pink">Newest First</a>
+<a href="?order_by=id&sort_order=ASC" class="btn sort-btn custom-light-pink">Oldest First</a>
+    <a href="?order_by=PName&sort_order=ASC" class="btn sort-btn custom-light-pink">Sort by Name (A-Z)</a>
+    <a href="?order_by=PName&sort_order=DESC" class="btn sort-btn custom-light-pink">Sort by Name (Z-A)</a>
+</div>
+
+<?php
 // Loop through products
 while ($row = mysqli_fetch_array($Record)) {
     $check_page = $row['PCategory'];
     if ($check_page === 'Home'); {
         echo "
-        <div class='product-card' data-product='{$row['PName']}' data-color='{$row['PColor']}' style='width: 290px; height: 390px; margin-left: 40px; margin-bottom: 20px;'>
-            <div class='card m-auto col-md-3' style='width: 100%; height: 100%;'>
-                
-                <div class='image-container' style='position: relative; height: 290px;'>
-                 <form action='Insertcart.php' method='POST'>
-                    <div style='position: absolute; top: 1px; left: 1px; background: rgba(0, 0, 0, 0.6); color: white; padding: 5px 10px; font-size: 0.9rem; border-radius: 5px;'>
-                        Stock: {$row['PStock']}
-                    </div>
-                    <div style='position: absolute; top: 1px; right: 1px; background: rgba(255, 0, 0, 0.8); color: white; padding: 5px 10px; font-size: 0.9rem; border-radius: 5px;'>
-                        Rs: {$row['PPrice']}
-                    </div>
-                    <img src='../admin/product/{$row['PImage']}' class='card-img-top' style='width: 100%; height: 100%; object-fit: cover; cursor: pointer;' onclick='showImageModal(\"../admin/product/{$row['PImage']}\")'>
-                </div>
-                <div class='card-body text-center'>
-                    <h5 class='card-title text-danger fs-6 fw-bold' style='font-size: 0.8rem;'>{$row['PName']}</h5>
-                    <div id='productDetails{$row['id']}' style='font-size: 0.8rem; margin: 3px 10px 0; margin-top: -5px; color: #555; line-height: 1.3; max-width: 220px; word-wrap: break-word; white-space: normal;'>
-                        <p>{$row['PDescription']}</p>
-                    </div>
-                    <div style='width: 70%; margin: auto; margin-top: 1px; text-align: left;'>
-                        <input type='number' name='PQuantity' min='1' max='20' placeholder='Quantity'  
-                            style='width: 100%; padding: 6px; font-size: 0.8rem; box-sizing: border-box; height: 25px; margin-bottom: 2px;' required>
-                        <select name='PSize' class='form-select' 
-                            style='width: 100%; padding: 6px; font-size: 0.8rem; box-sizing: border-box; height: 30px; margin-bottom: 2px;' required>
-                            <option value='' disabled selected>Select Size</option>
-                            <option value='S'>Small</option>
-                            <option value='M'>Medium</option>
-                            <option value='L'>Large</option>
-                        </select>
-                    </div>
-                </div>
-                <!-- Add to Cart Button -->
-                <input type='hidden' name='PName' value='{$row['PName']}'>
-                <input type='hidden' name='PPrice' value='{$row['PPrice']}'>
-                <input type='hidden' name='PImage' value='{$row['PImage']}'>
-                <input type='hidden' name='PStock' value='{$row['PStock']}'>
-                <input type='submit' name='addCart' class='btn btn-warning text-white fw-bold' style='width: 80%; margin: -10px auto 5%;' value='Add To Cart'>
-                
-            </form>
+<div class='product-card' data-product='{$row['PName']}' data-color='{$row['PColor']}' style='width: 290px; height: 390px; margin-left: 40px; margin-bottom: 20px;'>
+    <div class='card m-auto col-md-3' style='width: 100%; height: 100%;'>
+        
+        <div class='image-container' style='position: relative; height: 290px;'>
+         <form action='Insertcart.php' method='POST'>
+            <div style='position: absolute; top: 1px; left: 1px; background: rgba(0, 0, 0, 0.6); color: white; padding: 5px 10px; font-size: 0.9rem; border-radius: 5px;'>
+                Stock: {$row['PStock']}
+            </div>
+            <div style='position: absolute; top: 1px; right: 1px; background: rgba(255, 0, 0, 0.8); color: white; padding: 5px 10px; font-size: 0.9rem; border-radius: 5px;'>
+                Rs: {$row['PPrice']}
+            </div>
+            <img src='../admin/product/{$row['PImage']}' class='card-img-top' style='width: 100%; height: 100%; object-fit: cover; cursor: pointer;' onclick='showImageModal(\"../admin/product/{$row['PImage']}\")'>
+        </div>
+        <div class='card-body text-center'>
+            <h5 class='card-title text-danger fs-6 fw-bold' style='font-size: 0.8rem;'>{$row['PName']}</h5>
+            <div id='productDetails{$row['id']}' style='font-size: 0.8rem; margin: 3px 10px 0; margin-top: -5px; color: #555; line-height: 1.3; max-width: 220px; word-wrap: break-word; white-space: normal;'>
+                <p>{$row['PDescription']}</p>
+            </div>
+            <div style='width: 70%; margin: auto; margin-top: 1px; text-align: left;'>
+                <input type='number' name='PQuantity' min='1' max='20' placeholder='Quantity'  
+                    style='width: 100%; padding: 6px; font-size: 0.8rem; box-sizing: border-box; height: 25px; margin-bottom: 2px;' required>
+                <select name='PSize' class='form-select' 
+                    style='width: 100%; padding: 6px; font-size: 0.8rem; box-sizing: border-box; height: 30px; margin-bottom: 2px;' required>
+                    <option value='' disabled selected>Select Size</option>
+                    <option value='S'>Small</option>
+                    <option value='M'>Medium</option>
+                    <option value='L'>Large</option>
+                </select>
             </div>
         </div>
-        ";
+        <!-- Add to Cart Button -->
+        <input type='hidden' name='PName' value='{$row['PName']}'>
+        <input type='hidden' name='PPrice' value='{$row['PPrice']}'>
+        <input type='hidden' name='PImage' value='{$row['PImage']}'>
+        <input type='hidden' name='PStock' value='{$row['PStock']}'>
+        <input type='submit' name='addCart' class='btn btn-warning text-white fw-bold' style='width: 80%; margin: -10px auto 5%;' value='Add To Cart'>
         
+    </form>
+    </div>
+</div>
+";
     }
 }
-?>
+?> 
                 <!-- Modal for image popup -->
                 <div id='imageModal' style='display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1000; justify-content: center; align-items: center;'>
                     <img id='modalImage' src='' style='max-width: 90%; max-height: 90%; border: 5px solid white;'>
@@ -512,6 +556,15 @@ function filterProducts() {
 
                 </script>
 
+
+<style>
+    .custom-light-pink {
+        background-color:rgb(230, 165, 221) !important; /* Light pink */
+        border-color:rgb(75, 74, 74) !important;
+        color: #050505 !important; /* White text */
+        font-size: 13px;
+    }
+</style>
 </body>
 
 </html>

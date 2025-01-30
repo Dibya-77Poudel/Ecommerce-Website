@@ -8,6 +8,8 @@
     <!---Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+     <!-- Font Awesome CDN -->
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
 <style>
    .container-custom {
@@ -88,8 +90,8 @@
             <h4>FashionWear</h4>
             <ul>
                 <li><a href="../dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="mystore.php" class="active"><i class="fas fa-box"></i> Product Detail</a></li>
-                <li><a href="index.php"><i class="fas fa-cube"></i> Products</a></li>
+                <li><a href="" class="active"><i class="fas fa-box"></i> Product</a></li>
+                <li><a href=""><i class="fas fa-cube"></i> Order</a></li>
                 <li><a href="../user.php"><i class="fas fa-tags"></i> Users</a></li>
                 <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
             </ul>
@@ -133,7 +135,7 @@
 <div> <a href="index.php" class="add-product-btn">+ Add New Product</a></div>
    
   
-<table class="table table-secondary table-bordered">
+<table class="table table-secondary table-bordered custom-table">
 <thead class="text-center">
       <th>Id</th>                              
       <th>Name</th>
@@ -284,6 +286,7 @@ body {
     flex-grow: 1;
     padding: 20px;
     margin-left: 100px; /* Offset by sidebar width */
+    width: 120px;
 }
 
 header {
@@ -318,6 +321,34 @@ header {
 .user i {
     margin-right: 5px; /* Space between icon and text */
 }
+
+.add-product-btn {
+            position: absolute;
+            top: 88px;
+            right: 146px;
+            padding: 5px 8px;
+            background-color:rgb(34, 94, 173); /* Light blue color */
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .add-product-btn:hover {
+            background-color:rgb(74, 126, 238); /* Slightly darker blue on hover */
+        }
+
+        .custom-table {
+        margin-top: 45px;
+       /* Adjust the value as needed */
+    }
+
+
+
+
+
 
 
 
